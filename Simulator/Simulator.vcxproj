@@ -1,0 +1,1158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6F05DAC1-4FEF-4D11-B177-4FB26A217AE8}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Simulator</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Lib;$(SolutionDir)Lib\gurobi\include;$(SolutionDir)Lib\protobuf\include;$(SolutionDir)Lib\LKH3Lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\gurobi\lib;$(SolutionDir)Lib\protobuf\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libprotobufd.lib;libprotocd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(TargetPath)" "$(SolutionDir)Deploy\$(TargetFileName)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Lib;$(SolutionDir)Lib\gurobi\include;$(SolutionDir)Lib\protobuf\include;$(SolutionDir)Lib\LKH3Lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\gurobi\lib;$(SolutionDir)Lib\protobuf\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libprotobufd.lib;libprotocd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(TargetPath)" "$(SolutionDir)Deploy\$(TargetFileName)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Lib;$(SolutionDir)Lib\gurobi\include;$(SolutionDir)Lib\protobuf\include;$(SolutionDir)Lib\LKH3Lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\gurobi\lib;$(SolutionDir)Lib\protobuf\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libprotobuf.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(TargetPath)" "$(SolutionDir)Deploy\$(TargetFileName)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Lib;$(SolutionDir)Lib\gurobi\include;$(SolutionDir)Lib\protobuf\include;$(SolutionDir)Lib\LKH3Lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\gurobi\lib;$(SolutionDir)Lib\protobuf\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libprotobuf.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(TargetPath)" "$(SolutionDir)Deploy\$(TargetFileName)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Lib\LKH3Lib\Arr.h" />
+    <ClInclude Include="..\Lib\LKH3Lib\CachedTspSolver.h" />
+    <ClInclude Include="..\Lib\LKH3Lib\Graph.h" />
+    <ClInclude Include="..\Lib\LKH3Lib\LkhInput.h" />
+    <ClInclude Include="..\Lib\LKH3Lib\TspCache.h" />
+    <ClInclude Include="..\Lib\LKH3Lib\TspSolver.h" />
+    <ClInclude Include="..\Lib\LKH3\BIT.h" />
+    <ClInclude Include="..\Lib\LKH3\Delaunay.h" />
+    <ClInclude Include="..\Lib\LKH3\GainType.h" />
+    <ClInclude Include="..\Lib\LKH3\Genetic.h" />
+    <ClInclude Include="..\Lib\LKH3\GeoConversion.h" />
+    <ClInclude Include="..\Lib\LKH3\gpx.h" />
+    <ClInclude Include="..\Lib\LKH3\Hashing.h" />
+    <ClInclude Include="..\Lib\LKH3\Heap.h" />
+    <ClInclude Include="..\Lib\LKH3\LKH.h" />
+    <ClInclude Include="..\Lib\LKH3\Segment.h" />
+    <ClInclude Include="..\Lib\LKH3\Sequence.h" />
+    <ClInclude Include="..\Solver\Common.h" />
+    <ClInclude Include="..\Solver\Config.h" />
+    <ClInclude Include="..\Solver\CsvReader.h" />
+    <ClInclude Include="..\Solver\InventoryRouting.pb.h" />
+    <ClInclude Include="..\Solver\LogSwitch.h" />
+    <ClInclude Include="..\Solver\MpSolver.h" />
+    <ClInclude Include="..\Solver\MpSolverBase.h" />
+    <ClInclude Include="..\Solver\MpSolverGurobi.h" />
+    <ClInclude Include="..\Solver\PbReader.h" />
+    <ClInclude Include="..\Solver\Problem.h" />
+    <ClInclude Include="..\Solver\Solver.h" />
+    <ClInclude Include="..\Solver\Utility.h" />
+    <ClInclude Include="Simulator.h" />
+    <ClInclude Include="ThreadPool.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Lib\LKH3Lib\TspSolver.cpp" />
+    <ClCompile Include="..\Lib\LKH3\Activate.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AddCandidate.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AddExtraCandidates.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AddTourCandidates.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AdjustCandidateSet.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AdjustClusters.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AllocateStructures.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Ascent.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Best2OptMove.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Best3OptMove.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Best4OptMove.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Best5OptMove.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\BestKOptMove.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\BestSpecialOptMove.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Between.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Between_SL.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Between_SSL.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\BIT.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\BridgeGain.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\BuildKDTree.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\C.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CandidateReport.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ChooseInitialTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Connect.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CreateCandidateSet.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CreateDelaunayCandidateSet.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CreateNNCandidateSet.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CreateQuadrantCandidateSet.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Create_POPMUSIC_CandidateSet.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CTSP_InitialTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CVRP_InitialTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Delaunay.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Distance.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Distance_MTSP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Distance_SOP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Distance_SPECIAL.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\eprintf.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ERXT.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Excludable.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Exclude.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\FindTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\FixedOrCommonCandidates.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Flip.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Flip_SL.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Flip_SSL.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Forbidden.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\FreeStructures.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\fscanint.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Gain23.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\GenerateCandidates.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Genetic.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\GeoConversion.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\GetTime.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\gpx.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\GreedyTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Hashing.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Heap.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Improvement.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\IsBackboneCandidate.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\IsCandidate.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\IsCommonEdge.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\IsPossibleCandidate.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\KSwapKick.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\LinKernighan.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Make2OptMove.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Make3OptMove.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Make4OptMove.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Make5OptMove.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MakeKOptMove.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MergeTourWithBestTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MergeWithTourGPX2.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MergeWithTourIPT.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Minimum1TreeCost.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MinimumSpanningTree.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MTSP2TSP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MTSP_InitialTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MTSP_Report.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MTSP_WriteResult.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MTSP_WriteSolution.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\NormalizeNodeList.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\NormalizeSegmentList.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\OrderCandidateSet.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\PatchCycles.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\PDPTW_Reduce.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\PDTSPL_RepairTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\PDTSPL_Tree.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_1_PDTSP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_ACVRP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_BWTSP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_CCVRP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_CTSP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_CVRP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_CVRPTW.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_M1_PDTSP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_MLP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_MTSP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_MVRPB.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_M_PDTSP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_OVRP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_PDPTW.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_PDTSP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_PDTSPF.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_PDTSPL.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_RCTVRP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_SCVRPTW.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_SOP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_TRP.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_TSPDL.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_TSPPD.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_TSPTW.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_VRPB.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_VRPBTW.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_VRPPD.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\printff.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\PrintParameters.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Random.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadCandidates.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadEdges.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadLine.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadParameters.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadPenalties.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadProblem.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\RecordBestTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\RecordBetterTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\RemoveFirstActive.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ResetCandidateSet.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\RestoreTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SegmentSize.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Sequence.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SFCTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SINTEF_WriteSolution.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveCompressedSubproblem.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveDelaunaySubproblems.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveKarpSubproblems.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveKCenterSubproblems.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveKMeansSubproblems.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveRoheSubproblems.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveSFCSubproblems.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveSubproblem.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveSubproblemBorderProblems.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveTourSegmentSubproblems.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SOP_InitialTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SOP_RepairTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SOP_Report.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Statistics.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\StatusReport.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\StoreTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SymmetrizeCandidateSet.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\TrimCandidateSet.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\TSPDL_InitialTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\TSPTW_MakespanCost.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\TSPTW_Reduce.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\VRPB_Reduce.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\WriteCandidates.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\WritePenalties.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\WriteTour.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level1</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level1</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\_LKH.cpp" />
+    <ClCompile Include="..\Solver\CsvReader.cpp" />
+    <ClCompile Include="..\Solver\InventoryRouting.pb.cc" />
+    <ClCompile Include="..\Solver\MpSolverGurobi.cpp" />
+    <ClCompile Include="..\Solver\Solver.cpp" />
+    <ClCompile Include="..\Solver\Utility.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Simulator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\arr.natvis" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

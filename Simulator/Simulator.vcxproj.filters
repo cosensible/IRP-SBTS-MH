@@ -1,0 +1,636 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Solver">
+      <UniqueIdentifier>{084c3d0d-7a84-4349-a0f4-529941cdde14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Solver\Header Files">
+      <UniqueIdentifier>{0e6a88d0-fe73-436f-b649-69fe0715169f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Solver\Utility">
+      <UniqueIdentifier>{aa2bb08e-83da-4c57-978f-6e4a3a3c0419}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Solver\Source Files">
+      <UniqueIdentifier>{34b26482-fa2e-4df9-92eb-46aad7400d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Solver\Protocol">
+      <UniqueIdentifier>{cfb319b9-b506-4146-b7d4-26df65b98a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Solver\MpSolver">
+      <UniqueIdentifier>{1bfbb5cf-3ea8-4f5f-a118-1bf79f16f7b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Solver\TspLib">
+      <UniqueIdentifier>{e1c32134-bc6c-435e-b542-2b2853b0dfbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Solver\TspLib\LKH3">
+      <UniqueIdentifier>{e7eee0c7-5782-4549-9067-bf817b5c62c0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\Common.h">
+      <Filter>Solver\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\Config.h">
+      <Filter>Solver\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\LogSwitch.h">
+      <Filter>Solver\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\Problem.h">
+      <Filter>Solver\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\Solver.h">
+      <Filter>Solver\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\Utility.h">
+      <Filter>Solver\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\CsvReader.h">
+      <Filter>Solver\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\PbReader.h">
+      <Filter>Solver\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\InventoryRouting.pb.h">
+      <Filter>Solver\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\MpSolverBase.h">
+      <Filter>Solver\MpSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\MpSolverGurobi.h">
+      <Filter>Solver\MpSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Solver\MpSolver.h">
+      <Filter>Solver\MpSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3\LKH.h">
+      <Filter>Solver\TspLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3Lib\Arr.h">
+      <Filter>Solver\TspLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3Lib\Graph.h">
+      <Filter>Solver\TspLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3Lib\LkhInput.h">
+      <Filter>Solver\TspLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3Lib\TspCache.h">
+      <Filter>Solver\TspLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3Lib\TspSolver.h">
+      <Filter>Solver\TspLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3\BIT.h">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3\Delaunay.h">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3\GainType.h">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3\Genetic.h">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3\GeoConversion.h">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3\gpx.h">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3\Hashing.h">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3\Heap.h">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3\Segment.h">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3\Sequence.h">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lib\LKH3Lib\CachedTspSolver.h">
+      <Filter>Solver\TspLib</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Solver\Utility.cpp">
+      <Filter>Solver\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Solver\CsvReader.cpp">
+      <Filter>Solver\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Solver\Solver.cpp">
+      <Filter>Solver\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Solver\InventoryRouting.pb.cc">
+      <Filter>Solver\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Solver\MpSolverGurobi.cpp">
+      <Filter>Solver\MpSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3Lib\TspSolver.cpp">
+      <Filter>Solver\TspLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Activate.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AddCandidate.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AddExtraCandidates.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AddTourCandidates.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AdjustCandidateSet.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AdjustClusters.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\AllocateStructures.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Ascent.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Best2OptMove.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Best3OptMove.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Best4OptMove.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Best5OptMove.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\BestKOptMove.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\BestSpecialOptMove.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Between.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Between_SL.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Between_SSL.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\BIT.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\BridgeGain.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\BuildKDTree.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\C.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CandidateReport.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ChooseInitialTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Connect.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Create_POPMUSIC_CandidateSet.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CreateCandidateSet.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CreateDelaunayCandidateSet.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CreateNNCandidateSet.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CreateQuadrantCandidateSet.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CTSP_InitialTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\CVRP_InitialTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Delaunay.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Distance.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Distance_MTSP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Distance_SOP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Distance_SPECIAL.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\eprintf.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ERXT.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Excludable.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Exclude.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\FindTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\FixedOrCommonCandidates.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Flip.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Flip_SL.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Flip_SSL.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Forbidden.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\FreeStructures.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\fscanint.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Gain23.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\GenerateCandidates.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Genetic.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\GeoConversion.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\GetTime.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\gpx.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\GreedyTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Hashing.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Heap.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Improvement.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\IsBackboneCandidate.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\IsCandidate.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\IsCommonEdge.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\IsPossibleCandidate.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\KSwapKick.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\LinKernighan.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Make2OptMove.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Make3OptMove.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Make4OptMove.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Make5OptMove.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MakeKOptMove.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MergeTourWithBestTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MergeWithTourGPX2.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MergeWithTourIPT.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Minimum1TreeCost.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MinimumSpanningTree.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MTSP_InitialTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MTSP_Report.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MTSP_WriteResult.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MTSP_WriteSolution.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\MTSP2TSP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\NormalizeNodeList.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\NormalizeSegmentList.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\OrderCandidateSet.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\PatchCycles.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\PDPTW_Reduce.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\PDTSPL_RepairTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\PDTSPL_Tree.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_1_PDTSP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_ACVRP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_BWTSP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_CCVRP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_CTSP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_CVRP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_CVRPTW.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_M_PDTSP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_M1_PDTSP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_MLP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_MTSP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_MVRPB.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_OVRP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_PDPTW.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_PDTSP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_PDTSPF.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_PDTSPL.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_RCTVRP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_SCVRPTW.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_SOP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_TRP.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_TSPDL.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_TSPPD.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_TSPTW.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_VRPB.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_VRPBTW.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Penalty_VRPPD.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\printff.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\PrintParameters.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Random.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadCandidates.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadEdges.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadLine.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadParameters.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadPenalties.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ReadProblem.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\RecordBestTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\RecordBetterTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\RemoveFirstActive.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\ResetCandidateSet.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\RestoreTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SegmentSize.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Sequence.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SFCTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SINTEF_WriteSolution.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveCompressedSubproblem.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveDelaunaySubproblems.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveKarpSubproblems.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveKCenterSubproblems.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveKMeansSubproblems.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveRoheSubproblems.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveSFCSubproblems.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveSubproblem.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveSubproblemBorderProblems.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SolveTourSegmentSubproblems.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SOP_InitialTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SOP_RepairTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SOP_Report.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\Statistics.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\StatusReport.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\StoreTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\SymmetrizeCandidateSet.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\TrimCandidateSet.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\TSPDL_InitialTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\TSPTW_MakespanCost.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\TSPTW_Reduce.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\VRPB_Reduce.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\WriteCandidates.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\WritePenalties.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\WriteTour.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\LKH3\_LKH.cpp">
+      <Filter>Solver\TspLib\LKH3</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\arr.natvis" />
+  </ItemGroup>
+</Project>
