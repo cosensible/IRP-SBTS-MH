@@ -552,17 +552,17 @@ namespace szx {
 	}
 
 	void Solver::mixFinalSearch() {
-		//double gamma = 0.99;	// epsilon 衰减系数
-		//for (int i = 0; !timer.isTimeOut(); ++i) {
-		//	int p = 100000 * std::pow(gamma, i);	
-		//	p = p < 50000 ? 50000 : p;	// 从最优解出发的概率不能小于 0.5
-		//	if (rand.pick(100000) < p) { aux.curVisits = aux.bestVisits; }
-		//	else { Log(LogSwitch::Szx::Search) << "choose current solution!!!" << endl; }
-		//	disturb(aux.curVisits);
-		//}
+		double gamma = 0.99;	// epsilon 衰减系数
+		for (int i = 0; !timer.isTimeOut(); ++i) {
+			int p = 100000 * std::pow(gamma, i);	
+			p = p < 50000 ? 50000 : p;	// 从最优解出发的概率不能小于 0.5
+			if (rand.pick(100000) < p) { aux.curVisits = aux.bestVisits; }
+			else { Log(LogSwitch::Szx::Search) << "choose current solution!!!" << endl; }
+			disturb(aux.curVisits);
+		}
 
-		aux.curVisits = aux.bestVisits;
-		disturb(aux.curVisits);
+		//aux.curVisits = aux.bestVisits;
+		//disturb(aux.curVisits);
 	}
 
 	void Solver::execSearch(Solution &sln) {
