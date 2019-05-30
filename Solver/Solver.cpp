@@ -709,9 +709,9 @@ namespace szx {
 			}
 		}
 
-		//double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
-		//obj = holdingCost + tourcostFactor * routingCost;
-		obj = holdingCost + 2 * routingCost;
+		double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
+		obj = holdingCost + tourcostFactor * routingCost;
+		//obj = holdingCost + 2 * routingCost;
 		mp.addObjective(obj, MpSolver::OptimaOrientation::Minimize, 0, 0, 0, env.timeoutInSecond());
 
 		// add callbacks.
@@ -978,9 +978,9 @@ namespace szx {
 			}
 		}
 
-		//double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
-		//obj = holdingCost + tourcostFactor * routingCost;
-		obj = holdingCost + 2 * routingCost;
+		double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
+		obj = holdingCost + tourcostFactor * routingCost;
+		//obj = holdingCost + 2 * routingCost;
 		mp.addObjective(obj, MpSolver::OptimaOrientation::Minimize, 0, 0, 0, timeInSec);
 
 		// add callbacks.
