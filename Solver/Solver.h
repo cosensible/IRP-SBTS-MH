@@ -243,7 +243,7 @@ namespace szx {
 		Price callModel(Arr2D<int> &visits);
 		void execSearch(Solution &sln);
 		void getBestSln(Solution &sln, const Arr2D<ID> &visits);
-		void getNeighWithModel(Solution &sln, const Arr2D<ID> &visits, const List<ID> &pl, double timeInSec = 60);
+		void getNeighWithModel(Solution &sln, const Arr2D<ID> &visits, const List<ID> &pl, double timeInSec = 90);
 
 		int buildMixNeigh(Arr2D<ID> &visits, Price minCost = Problem::MaxCost);
 		bool mixTabuSearch(Arr2D<ID> &visits, Price initCost);
