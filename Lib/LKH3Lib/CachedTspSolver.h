@@ -42,7 +42,7 @@ struct CachedTspSolver {
     template<typename InputData>
     bool solve(Tour &sln, const TspCache::NodeSet &containNode, const InputData &input, MapNodeId mapId, const Tour &hintSln = Tour()) {
         const Tour &cachedTour(tspCache.get(containNode));
-        if (cachedTour.nodes.empty()) {
+        if (cachedTour.nodes.empty() || cachedTour.nodes.size() != input.size()) {
             if (!lkh::solveTsp(sln, input, hintSln)) { return false; }
             if (mapId) { // recover node ID.
                 for (auto n = sln.nodes.begin(); n != sln.nodes.end(); ++n) { *n = mapId(*n); }
