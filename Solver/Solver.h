@@ -243,15 +243,20 @@ namespace szx {
 		Price callModel(Arr2D<int> &visits);
 		void execSearch(Solution &sln);
 		void getBestSln(Solution &sln, const Arr2D<ID> &visits);
-		void getNeighWithModel(Solution &sln, const Arr2D<ID> &visits, const List<ID> &pl, double timeInSec = 90);
+		void getNeighWithModel(Solution &sln, const Arr2D<ID> &visits, const List<ID> &pl, double timeInSec = 60);
+		
+		bool changeNodeModel(Arr2D<ID> &visits, ID cn);
+		void changeNode(Arr2D<ID> &visits, Solution &sln);
+		void initQuantity(Solution &sln);
+		ID chooseNode(const Arr<ID> &tabuList, ID step);
 
 		int buildMixNeigh(Arr2D<ID> &visits, Price minCost = Problem::MaxCost);
 		bool mixTabuSearch(Arr2D<ID> &visits, Price initCost);
 		void disturb(Arr2D<ID> &visits);
 		void mixFinalSearch();
 
-		Price addNodeTourCost(ID p, ID n);
-		Price delNodeTourCost(ID p, ID n);
+		Price addNodeTourCost(ID p, ID n, bool chTour = false);
+		Price delNodeTourCost(ID p, ID n, bool chTour = false);
 		Price movNodeTourCost(ID apid, ID anid, ID dpid, ID dnid);
 		Price swpNodeTourCost(ID p1, ID n1, ID p2, ID n2);
 
@@ -279,7 +284,7 @@ namespace szx {
 		unsigned hashValue1, hashValue2, hashValue3;
 
 		struct {
-			Arr2D<Price> routingCost;
+			Arr2D<Price> routingCost, quanLevels;
 			Price initHoldingCost, bestCost;
 			Arr2D<ID> bestVisits, curVisits;
 			Arr<Price> tourPrices;

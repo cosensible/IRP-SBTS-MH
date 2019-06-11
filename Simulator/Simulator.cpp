@@ -286,7 +286,7 @@ namespace szx {
 	void Simulator::parallelBenchmark(int repeat) {
 		Task task;
 		task.instSet = "";
-		task.timeout = "600";
+		task.timeout = "360";
 		task.jobNum = "1";
 		task.runId = "0";
 		task.cfgPath = Env::DefaultCfgPath();
