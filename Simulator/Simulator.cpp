@@ -286,7 +286,7 @@ namespace szx {
 			task.runId = to_string(i);
 			task.randSeed = to_string(Random::generateSeed());
 			exe(task);
-			this_thread::sleep_for(2s);
+			this_thread::sleep_for(1s);
 		}
 	}
 
@@ -297,6 +297,7 @@ namespace szx {
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
+
 		ThreadPool<> tp(15);
 		random_device rd;
 		mt19937 rgen(rd());

@@ -7,7 +7,6 @@
 #ifndef SMART_SZX_INVENTORY_ROUTING_SOLVER_H
 #define SMART_SZX_INVENTORY_ROUTING_SOLVER_H
 
-
 #include "Config.h"
 
 #include <algorithm>

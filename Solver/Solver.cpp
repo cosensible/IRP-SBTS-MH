@@ -566,7 +566,7 @@ namespace szx {
 	}
 
 	void Solver::execSearch(Solution &sln) {
-		timer = Timer(2100s, timer.getStartTime());
+		timer = Timer(3600s, timer.getStartTime());
 		bestSlnTime = timer.getEndTime();
 
 		iteratedModel(sln);
@@ -580,6 +580,9 @@ namespace szx {
 				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 });
 			}
 		}
+
+		aux.curVisits = aux.bestVisits;
+		changeNode(aux.curVisits, sln);
 		
 		aux.curVisits = aux.bestVisits;
 		mixTabuSearch(aux.curVisits, aux.bestCost);
