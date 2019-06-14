@@ -17,21 +17,21 @@ namespace szx {
 	struct LogSwitch {
 		// TODO[szx][0]: turn off all logs before the release.
 
-	  //  enum Szx {
-	  //      Main = Log::Level::Info,
-	  //      Cli = Log::Level::Off,
-	  //      Framework = Log::Level::Off,
-	  //      Input = Log::Level::On,
-	  //      Output = Log::Level::Off,
-	  //      Preprocess = Log::Level::Off,
-	  //      Postprocess = Log::Level::Off,
-	  //      Config = Log::Level::Off,
-	  //      Model = Log::Level::On,
-	  //      MpSolver = Log::Level::Off,
-	  //      Checker = Log::Level::On,
-			//Search=Log::Level::On,
-			//Opt=Log::Level::On,
-	  //  };
+		//enum Szx {
+		//	Main = Log::Level::Info,
+		//	Cli = Log::Level::Off,
+		//	Framework = Log::Level::Off,
+		//	Input = Log::Level::On,
+		//	Output = Log::Level::Off,
+		//	Preprocess = Log::Level::Off,
+		//	Postprocess = Log::Level::Off,
+		//	Config = Log::Level::Off,
+		//	Model = Log::Level::On,
+		//	MpSolver = Log::Level::Off,
+		//	Checker = Log::Level::On,
+		//	Search = Log::Level::On,
+		//	Opt = Log::Level::On,
+		//};
 
 		enum Szx {
 			Main = Log::Level::Info,

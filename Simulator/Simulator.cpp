@@ -190,9 +190,9 @@ namespace szx {
 	void Simulator::debug() {
 		Task task;
 		task.instSet = "";
-		task.instId = "abs.v1h6c2n200.7";
+		task.instId = "abs.v1h6c1n100.10";
 		task.timeout = "360";
-		task.randSeed = "1559503930";
+		task.randSeed = "1559429277";
 		//task.randSeed = to_string(Random::generateSeed());
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
@@ -221,7 +221,7 @@ namespace szx {
 	}
 
 	void Simulator::benchmark(int repeat) {
-		Task task;
+	/*	Task task;
 		task.instSet = "";
 		task.timeout = "360";
 		task.jobNum = "1";
@@ -255,6 +255,29 @@ namespace szx {
 				task.runId = to_string(i);
 				run(task);
 			}
+		}*/
+
+		Task task;
+		task.instSet = "";
+
+		task.instId = "abs.v1h6c1n100.8";
+		task.randSeed = "1559477260";
+
+		//task.instId = "abs.v1h6c1n100.9";
+		//task.randSeed = "1559427260";
+
+		//task.instId = "abs.v1h6c1n100.10";
+		//task.randSeed = "1559429277";
+
+		task.timeout = "360";
+		task.jobNum = "1";
+		task.cfgPath = Env::DefaultCfgPath();
+		task.logPath = Env::DefaultLogPath();
+		for (int i = 0; i < repeat; ++i) {
+			//task.randSeed = to_string(Random::generateSeed());
+			task.runId = to_string(i);
+			run(task);
+			this_thread::sleep_for(1s);
 		}
 	}
 
@@ -281,12 +304,11 @@ namespace szx {
 	//	}
 	//}
 
-	void Simulator::parallelrun(Task &task, int repeat) {
+	void Simulator::parallelrun(Task task, int repeat) {
 		for (int i = 0; i < repeat; ++i) {
 			task.runId = to_string(i);
 			task.randSeed = to_string(Random::generateSeed());
 			exe(task);
-			this_thread::sleep_for(2s);
 		}
 	}
 
@@ -297,34 +319,17 @@ namespace szx {
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
+
 		ThreadPool<> tp(15);
 		random_device rd;
 		mt19937 rgen(rd());
-		for (auto inst = instList.begin(); inst != instList.end(); ++inst) {
-			//for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
+		//for (auto inst = instList.begin(); inst != instList.end(); ++inst) {
+		for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
 			task.instId = *inst;
 			//tp.push([=]() { run(task); });
-			tp.push([=, &task]() { parallelrun(task, repeat); });
+			tp.push([=]() { parallelrun(task, repeat); });
 			this_thread::sleep_for(2s);
 		}
-
-		//Task task;
-		//task.instSet = "";
-		//task.timeout = "360";
-		//task.jobNum = "1";
-		//task.instId = "abs.v1h6c2n200.7";
-		//task.randSeed = "1559503930";
-		//task.cfgPath = Env::DefaultCfgPath();
-		//task.logPath = Env::DefaultLogPath();
-		//ThreadPool<> tp(15);
-		//random_device rd;
-		//mt19937 rgen(rd());
-		//for (int i = 0; i < repeat; ++i) {
-		//	task.runId = to_string(i);
-		//	//task.randSeed = to_string(Random::generateSeed());
-		//	tp.push([=]() { exe(task); });
-		//	this_thread::sleep_for(2s);
-		//}
 	}
 
 	void Simulator::generateInstance(const InstanceTrait &trait) {

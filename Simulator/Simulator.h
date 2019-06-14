@@ -72,7 +72,7 @@ namespace szx {
 		// invoke solver by ABI with arguments explicitly specifying running information.
 		void exe(const Task &task);
 
-		void parallelrun(Task &task, int repeat);
+		void parallelrun(Task task, int repeat);
 
 		// invoke solver by API with arguments explicitly specifying running information.
 		void run(const Task &task);
