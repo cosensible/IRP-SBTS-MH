@@ -9,7 +9,7 @@ int main() {
     Simulator sim;
     //sim.debug();
     //sim.benchmark(2);
-	sim.parallelBenchmark(5);
+	sim.parallelBenchmark(6);
     //sim.generateInstance();
 
     return 0;
