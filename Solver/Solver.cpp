@@ -568,23 +568,23 @@ namespace szx {
 	}
 
 	void Solver::execSearch(Solution &sln) {
-		timer = Timer(10800s, timer.getStartTime());
+		timer = Timer(3600s, timer.getStartTime());
 		bestSlnTime = timer.getEndTime();
 
 		iteratedModel(sln);
 		aux.curVisits = aux.bestVisits;
-		changeNode(aux.curVisits, sln, Timer(300s));
+		changeNode(aux.curVisits, sln);
 
 		for (ID p = 0; p < periodNum - 2; ++p) {
-			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 480);
+			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 180);
 			aux.curVisits = aux.bestVisits;
-			changeNode(aux.curVisits, sln, Timer(120s));
+			changeNode(aux.curVisits, sln);
 		}
 		for (ID i = 0; i < 2; ++i) {
 			for (ID p = 0; p < periodNum - 1; ++p) {
-				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 240);
+				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 90);
 				aux.curVisits = aux.bestVisits;
-				changeNode(aux.curVisits, sln, Timer(60s));
+				changeNode(aux.curVisits, sln);
 			}
 		}
 		

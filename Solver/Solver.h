@@ -245,7 +245,7 @@ namespace szx {
 		void getNeighWithModel(Solution &sln, const Arr2D<ID> &visits, const List<ID> &pl, double timeInSec = 90);
 		
 		bool changeNodeModel(Arr2D<ID> &visits, ID cn);
-		void changeNode(Arr2D<ID> &visits, Solution &sln, const Timer &cnt);
+		void changeNode(Arr2D<ID> &visits, Solution &sln, const Timer &cnt = Timer(30s));
 		void initQuantity(Solution &sln);
 		ID chooseNode(const Arr<ID> &tabuList, ID step);
 
