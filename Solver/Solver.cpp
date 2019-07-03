@@ -561,23 +561,25 @@ namespace szx {
 		//	disturb(aux.curVisits);
 		//}
 
-		aux.curVisits = aux.bestVisits;
-		disturb(aux.curVisits);
+		while (!timer.isTimeOut()) {
+			aux.curVisits = aux.bestVisits;
+			disturb(aux.curVisits);
+		}
 	}
 
 	void Solver::execSearch(Solution &sln) {
-		timer = Timer(2100s, timer.getStartTime());
+		timer = Timer(10800s, timer.getStartTime());
 		bestSlnTime = timer.getEndTime();
 
 		iteratedModel(sln);
 
 		for (ID p = 0; p < periodNum - 2; ++p) {
-			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 120);
+			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 480);
 		}
 
 		for (ID i = 0; i < 2; ++i) {
 			for (ID p = 0; p < periodNum - 1; ++p) {
-				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 });
+				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 240);
 			}
 		}
 		
@@ -709,9 +711,9 @@ namespace szx {
 			}
 		}
 
-		//double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
-		//obj = holdingCost + tourcostFactor * routingCost;
-		obj = holdingCost + 2 * routingCost;
+		double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
+		obj = holdingCost + tourcostFactor * routingCost;
+		//obj = holdingCost + 2 * routingCost;
 		mp.addObjective(obj, MpSolver::OptimaOrientation::Minimize, 0, 0, 0, env.timeoutInSecond());
 
 		// add callbacks.
@@ -978,9 +980,9 @@ namespace szx {
 			}
 		}
 
-		//double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
-		//obj = holdingCost + tourcostFactor * routingCost;
-		obj = holdingCost + 2 * routingCost;
+		double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
+		obj = holdingCost + tourcostFactor * routingCost;
+		//obj = holdingCost + 2 * routingCost;
 		mp.addObjective(obj, MpSolver::OptimaOrientation::Minimize, 0, 0, 0, timeInSec);
 
 		// add callbacks.
