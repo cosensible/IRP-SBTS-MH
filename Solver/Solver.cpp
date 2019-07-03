@@ -568,23 +568,23 @@ namespace szx {
 	}
 
 	void Solver::execSearch(Solution &sln) {
-		timer = Timer(3600s, timer.getStartTime());
+		timer = Timer(10800s, timer.getStartTime());
 		bestSlnTime = timer.getEndTime();
 
 		iteratedModel(sln);
 		aux.curVisits = aux.bestVisits;
-		changeNode(aux.curVisits, sln);
+		changeNode(aux.curVisits, sln, Timer(300s));
 
 		for (ID p = 0; p < periodNum - 2; ++p) {
-			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 180);
+			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 480);
 			aux.curVisits = aux.bestVisits;
-			changeNode(aux.curVisits, sln);
+			changeNode(aux.curVisits, sln, Timer(120s));
 		}
 		for (ID i = 0; i < 2; ++i) {
 			for (ID p = 0; p < periodNum - 1; ++p) {
-				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 });
+				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 240);
 				aux.curVisits = aux.bestVisits;
-				changeNode(aux.curVisits, sln);
+				changeNode(aux.curVisits, sln, Timer(60s));
 			}
 		}
 		
@@ -1320,11 +1320,12 @@ namespace szx {
 		return chosenIds[rand.pick(chosenIds.size())];
 	}
 
-	void Solver::changeNode(Arr2D<ID> &visits,Solution &sln) {
+	void Solver::changeNode(Arr2D<ID> &visits, Solution &sln, const Timer &cnt) {
 		Arr<ID> tabuNodeList(nodeNum, 1);
 		initQuantity(sln);
 
-		Timer cnt = Timer(30s); int i = 1;
+		//Timer cnt = Timer(30s);
+		int i = 1;
 		for (; !cnt.isTimeOut(); ++i) {
 			ID nodeId = chooseNode(tabuNodeList, i);
 			tabuNodeList[nodeId] = i + 10 + rand.pick(11);
@@ -1342,7 +1343,7 @@ namespace szx {
 		}
 		Log(LogSwitch::Szx::Model) << "after change node, opt=" << aux.bestCost << endl;
 		getBestSln(sln, aux.bestVisits);
-		Log(LogSwitch::Szx::Model) << "i=" << i << ", change node takes " << cnt.elapsedSeconds() << " seconds" << endl;
+		Log(LogSwitch::Szx::Model) << "i=" << i << ", change node takes " << Timer::durationInSecond(cnt.getStartTime(),Timer::Clock::now()) << " seconds" << endl;
 	}
 
 	Price Solver::callModel(Arr2D<int> &visits) {
