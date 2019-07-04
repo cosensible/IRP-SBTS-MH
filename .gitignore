@@ -246,7 +246,7 @@ ModelManifest.xml
 /Deploy/Simulator.exe
 /Deploy/Checker.exe
 /Deploy/Analyzer.exe
-/Deploy/log.csv
+/Deploy/*.csv
 /Deploy/Solution/*.json*
 /Deploy/Visualization/*.html
 /Deploy/Instance/abs*
