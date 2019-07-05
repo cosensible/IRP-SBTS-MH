@@ -1,4 +1,3 @@
-
 ////////////////////////////////
 /// usage : 1.	switches for debug log.
 /// 
@@ -8,9 +7,7 @@
 #ifndef SMART_SZX_INVENTORY_ROUTING_LOG_SWITCH_H
 #define SMART_SZX_INVENTORY_ROUTING_LOG_SWITCH_H
 
-
 #include "Utility.h"
-
 
 namespace szx {
 
@@ -51,6 +48,5 @@ namespace szx {
 	};
 
 }
-
 
 #endif // SMART_SZX_INVENTORY_ROUTING_LOG_SWITCH_H

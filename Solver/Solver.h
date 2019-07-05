@@ -34,9 +34,13 @@ namespace szx {
 			Price totalCost, modelCost;
 
 			Actor() { actype = DUM; p1 = n1 = p2 = n2 = -1; totalCost = modelCost = Problem::MaxCost; }
-			Actor(ActorType actpye, Price tcost, Price mcost, ID p1, ID n1, ID p2 = -1, ID n2 = -1) :
-				actype(actpye), totalCost(tcost), modelCost(mcost), p1(p1), n1(n1), p2(p2), n2(n2) {}
 
+			Actor(ActorType actype, Price tcost, Price mcost, ID p1, ID n1, ID p2 = -1, ID n2 = -1) :
+				actype(actype), totalCost(tcost), modelCost(mcost), p1(p1), n1(n1), p2(p2), n2(n2) {}
+
+			Actor(Actor&&) = default;
+
+			Actor(const Actor& act) :actype(act.actype), totalCost(act.totalCost), modelCost(act.modelCost), p1(act.p1), n1(act.n1), p2(act.p2), n2(act.n2) {}
 			Actor& operator=(const Actor &rhs) {
 				if (this != &rhs) {
 					actype = rhs.actype; p1 = rhs.p1; n1 = rhs.n1; p2 = rhs.p2; n2 = rhs.n2; totalCost = rhs.totalCost; modelCost = rhs.modelCost;
@@ -242,10 +246,11 @@ namespace szx {
 		Price callModel(Arr2D<int> &visits);
 		void execSearch(Solution &sln);
 		void getBestSln(Solution &sln, const Arr2D<ID> &visits);
-		void getNeighWithModel(Solution &sln, const Arr2D<ID> &visits, const List<ID> &pl, double timeInSec = 60);
-		
+		bool getNeighWithModel(Solution &sln, const Arr2D<ID> &visits, const List<ID> &pl, double timeInSec = 90);
+
 		bool changeNodeModel(Arr2D<ID> &visits, ID cn);
-		void changeNode(Arr2D<ID> &visits, Solution &sln);
+		void changeNode(Arr2D<ID> &visits, Solution &sln, int maxIter = 100);
+		void changeNode(Arr2D<ID> &visits, Solution &sln, const Timer::Millisecond &d);
 		void initQuantity(Solution &sln);
 		ID chooseNode(const Arr<ID> &tabuList, ID step);
 

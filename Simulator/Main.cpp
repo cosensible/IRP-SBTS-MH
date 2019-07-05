@@ -4,13 +4,13 @@ using namespace std;
 using namespace szx;
 
 int main() {
-    //Simulator::initDefaultEnvironment();
+	//Simulator::initDefaultEnvironment();
 
-    Simulator sim;
-    //sim.debug();
-    //sim.benchmark(2);
-	sim.parallelBenchmark(5);
-    //sim.generateInstance();
+	Simulator sim;
+	//sim.debug();
+	//sim.benchmark(12);
+	sim.parallelBenchmark(4);
+	//sim.generateInstance();
 
-    return 0;
+	return 0;
 }
