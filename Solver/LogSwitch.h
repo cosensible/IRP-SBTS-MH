@@ -49,5 +49,4 @@ namespace szx {
 
 }
 
-
 #endif // SMART_SZX_INVENTORY_ROUTING_LOG_SWITCH_H
