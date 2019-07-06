@@ -344,19 +344,17 @@ namespace szx {
 			for (ID p = 0; p < periodNum; ++p) {
 				if (visits[p][n]) {
 					P1.push_back(p);
-					Actor act(ActorType::DEL, delNodeTourCost(p, n), 0.0, -1, -1, p, n);
-					if (!isTabu(hashValue1, hashValue2, hashValue3, act)) {
-						delNeigh.push_back(std::move(act));
-					}
+					Actor act(DEL, delNodeTourCost(p, n), 0.0, -1, -1, p, n);
+					if (!isTabu(hashValue1, hashValue2, hashValue3, act)) { delNeigh.push_back(act); }
 				}
 				else { P0.push_back(p); }
 			}
 
-			for (ID &p0 : P0) {
-				for (ID &p1 : P1) {
-					Actor act(ActorType::MOV, movNodeTourCost(p0, n, p1, n), 0.0, p0, n, p1, n);
+			for (ID p0 : P0) {
+				for (ID p1 : P1) {
+					Actor act(MOV, movNodeTourCost(p0, n, p1, n), 0.0, p0, n, p1, n);
 					if (isTabu(hashValue1, hashValue2, hashValue3, act)) { continue; }
-					movNeigh.push_back(std::move(act));
+					movNeigh.push_back(act);
 				}
 			}
 		}
@@ -370,79 +368,128 @@ namespace szx {
 				}
 				for (ID t1 : tvn) {
 					for (ID t2 : tvm) {
-						Actor act(ActorType::SWP, swpNodeTourCost(t1, n, t2, m), 0.0, t1, n, t2, m);
+						Actor act(SWP, swpNodeTourCost(t1, n, t2, m), 0.0, t1, n, t2, m);
 						if (isTabu(hashValue1, hashValue2, hashValue3, act)) { continue; }
-						swpNeigh.push_back(std::move(act));
+						swpNeigh.push_back(act);
 					}
 				}
 			}
 		}
 
-		std::sort(delNeigh.begin(), delNeigh.end(), [](const Actor &a1, const Actor &a2) {return a1.totalCost < a2.totalCost; });
-		std::sort(movNeigh.begin(), movNeigh.end(), [](const Actor &a1, const Actor &a2) {return a1.totalCost < a2.totalCost; });
-		std::sort(swpNeigh.begin(), swpNeigh.end(), [](const Actor &a1, const Actor &a2) {return a1.totalCost < a2.totalCost; });
+		std::sort(delNeigh.begin(), delNeigh.end(), [](Actor &a1, Actor &a2) {return a1.totalCost < a2.totalCost; });
+		std::sort(movNeigh.begin(), movNeigh.end(), [](Actor &a1, Actor &a2) {return a1.totalCost < a2.totalCost; });
+		std::sort(swpNeigh.begin(), swpNeigh.end(), [](Actor &a1, Actor &a2) {return a1.totalCost < a2.totalCost; });
 		unsigned maxSize = 2 * periodNum * static_cast<unsigned>(sqrt(nodeNum));
 
-		ID p1, n1, p2, n2;
+	/*
+		for (ID i = 0; i < maxSize && i < delNeigh.size(); ++i) {
+			auto &del(delNeigh[i]);
+			visits[del.p2][del.n2] = 0;
+			if ((del.modelCost = callModel(visits)) >= 0) {
+				del.totalCost += del.modelCost;
+				aux.mixNeigh.push_back(del);
+			}
+			else {	// 不合法，则禁忌
+				execTabu(hashValue1, hashValue2, hashValue3, del);
+			}
+			visits[del.p2][del.n2] = 1;
+		}
+
+		for (ID i = 0; i < maxSize && i < movNeigh.size(); ++i) {
+			auto &mov(movNeigh[i]);
+			visits[mov.p1][mov.n1] = 1; visits[mov.p2][mov.n2] = 0;
+			if ((mov.modelCost = callModel(visits)) >= 0) {
+				mov.totalCost += mov.modelCost;
+				aux.mixNeigh.push_back(mov);
+			}
+			else {	// 不合法，则禁忌
+				execTabu(hashValue1, hashValue2, hashValue3, mov);
+			}
+			visits[mov.p1][mov.n1] = 0; visits[mov.p2][mov.n2] = 1;
+		}
+
+		for (ID i = 0; i < maxSize && i < swpNeigh.size(); ++i) {
+			auto &swp(swpNeigh[i]);
+			visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 0;
+			visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 1;
+			if ((swp.modelCost = callModel(visits)) >= 0) {
+				swp.totalCost += swp.modelCost;
+				aux.mixNeigh.push_back(swp);
+			}
+			else {	// 不合法，则禁忌
+				execTabu(hashValue1, hashValue2, hashValue3, swp);
+			}
+			visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 1;
+			visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 0;
+		}
+
+		std::sort(aux.mixNeigh.begin(), aux.mixNeigh.end(), [](const Actor &a1, const Actor &a2) {return a1.totalCost < a2.totalCost; });
+
+		for (auto i = aux.mixNeigh.begin(), j = i + 1; j != aux.mixNeigh.end(); ++j) {
+			if (Math::weakEqual(i->totalCost, j->totalCost, 0.1)) {
+				execTabu(hashValue1, hashValue2, hashValue3, *j);
+			}
+			else { i = j; }
+		}
+		return aux.mixNeigh.size() > 5 ? 5 : aux.mixNeigh.size();
+	*/
+
 		for (ID i = 0; i < maxSize && i < delNeigh.size(); ++i) {
 			auto &del(delNeigh[i]);
 			execTabu(hashValue1, hashValue2, hashValue3, del);
-			p2 = del.p2, n2 = del.n2;
-			visits[p2][n2] = 0;
+			visits[del.p2][del.n2] = 0;
 			if (( del.modelCost= callModel(visits)) >= 0) {
 				del.totalCost += del.modelCost;
 				if (Math::strongLess(del.totalCost, minCost)) {
 					aux.mixNeigh.clear();
 					minCost = del.totalCost;
-					aux.mixNeigh.push_back(std::move(del));
+					aux.mixNeigh.push_back(del);
 				}
 				else if (Math::weakEqual(del.totalCost, minCost)) {
-					aux.mixNeigh.push_back(std::move(del));
+					aux.mixNeigh.push_back(del);
 				}
 			}
-			visits[p2][n2] = 1;
+			visits[del.p2][del.n2] = 1;
 		}
 		
 		for (ID i = 0; i < maxSize && i < movNeigh.size(); ++i) {
 			auto &mov(movNeigh[i]);
 			execTabu(hashValue1, hashValue2, hashValue3, mov);
-			p1 = mov.p1, n1 = mov.n1, p2 = mov.p2, n2 = mov.n2;
-			visits[p1][n1] = 1; visits[p2][n2] = 0;
+			visits[mov.p1][mov.n1] = 1; visits[mov.p2][mov.n2] = 0;
 			if ((mov.modelCost = callModel(visits)) >= 0) {
 				mov.totalCost += mov.modelCost;
 				if (Math::strongLess(mov.totalCost, minCost)) {
 					aux.mixNeigh.clear();
 					minCost = mov.totalCost;
-					aux.mixNeigh.push_back(std::move(mov));
+					aux.mixNeigh.push_back(mov);
 				}
 				else if (Math::weakEqual(mov.totalCost, minCost)) {
-					aux.mixNeigh.push_back(std::move(mov));
+					aux.mixNeigh.push_back(mov);
 				}
 			}
-			visits[p1][n1] = 0; visits[p2][n2] = 1;
+			visits[mov.p1][mov.n1] = 0; visits[mov.p2][mov.n2] = 1;
 		}
 		
 		for (ID i = 0; i < maxSize && i < swpNeigh.size(); ++i) {
 			auto &swp(swpNeigh[i]);
 			execTabu(hashValue1, hashValue2, hashValue3, swp);
-			p1 = swp.p1, n1 = swp.n1, p2 = swp.p2, n2 = swp.n2;
-			visits[p1][n1] = visits[p2][n2] = 0;
-			visits[p1][n2] = visits[p2][n1] = 1;
+			visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 0;
+			visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 1;
 			if ((swp.modelCost = callModel(visits)) >= 0) {
 				swp.totalCost += swp.modelCost;
 				if (Math::strongLess(swp.totalCost, minCost)) {
 					aux.mixNeigh.clear();
 					minCost = swp.totalCost;
-					aux.mixNeigh.push_back(std::move(swp));
+					aux.mixNeigh.push_back(swp);
 				}
 				else if (Math::weakEqual(swp.totalCost, minCost)) {
-					aux.mixNeigh.push_back(std::move(swp));
+					aux.mixNeigh.push_back(swp);
 				}
 			}
-			visits[p1][n1] = visits[p2][n2] = 1;
-			visits[p1][n2] = visits[p2][n1] = 0;
+			visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 1;
+			visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 0;
 		}
-		
+
 		return aux.mixNeigh.size();
 	}
 
@@ -457,7 +504,7 @@ namespace szx {
 				}
 			}
 			sampling(room, addOpts, addNumber);
-			for (ID &vid : addOpts) { visits[vid / nodeNum][vid % nodeNum] = 1; }
+			for (ID vid : addOpts) { visits[vid / nodeNum][vid % nodeNum] = 1; }
 
 			// 移动操作
 			List<std::pair<ID, ID>> movRoom;
@@ -525,7 +572,7 @@ namespace szx {
 
 	bool Solver::mixTabuSearch(Arr2D<ID> &visits, Price modelCost) {
 		execTabu(visits, true);
-		bool isImproved = false; ID mixNeighSize;
+		bool isImproved = false; ID mixNeighSize = 0;
 		for (ID step = 0; !timer.isTimeOut() && step < alpha && (mixNeighSize = buildMixNeigh(visits)); ++step) {
 			const auto &act(aux.mixNeigh[rand.pick(mixNeighSize)]);
 			if (act.actype == ActorType::SWP) {
@@ -573,21 +620,21 @@ namespace szx {
 
 		iteratedModel(sln);
 		aux.curVisits = aux.bestVisits;
-		changeNode(aux.curVisits, sln, 500);
+		changeNode(aux.curVisits, sln, 360s);
 
-		for (ID p = 0; p < periodNum - 2; ++p) {
-			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 480);
-			aux.curVisits = aux.bestVisits;
-			changeNode(aux.curVisits, sln, 300);
-		}
-		for (ID i = 0; i < 2; ++i) {
-			for (ID p = 0; p < periodNum - 1; ++p) {
-				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 240);
+		for (int i = 0; i < 2; ++i) {
+			for (ID p = 0; p < periodNum - 2; ++p) {
+				getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 180);
 				aux.curVisits = aux.bestVisits;
-				changeNode(aux.curVisits, sln, 200);
+				changeNode(aux.curVisits, sln, 120s);
+			}
+			for (ID p = 0; p < periodNum - 1; ++p) {
+				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 180);
+				aux.curVisits = aux.bestVisits;
+				changeNode(aux.curVisits, sln, 120s);
 			}
 		}
-		
+
 		aux.curVisits = aux.bestVisits;
 		mixTabuSearch(aux.curVisits, aux.bestCost);
 		mixFinalSearch();
@@ -608,7 +655,7 @@ namespace szx {
 	void Solver::iteratedModel(Solution &sln) {
 		ID vehicleNum = input.vehicles_size();
 		const auto &nodes(*input.mutable_nodes());
-		MpSolver::Configuration mpCfg(MpSolver::InternalSolver::GurobiMip, env.timeoutInSecond(), true, false);
+		MpSolver::Configuration mpCfg(MpSolver::InternalSolver::GurobiMip, env.timeoutInSecond());
 		MpSolver mp(mpCfg); mp.setMaxThread(4);
 
 		// delivery[p, v, n] is the quantity delivered to node n at period p by vehicle v.
@@ -785,10 +832,6 @@ namespace szx {
 		Solution curSln;
 		curSln.init(periodNum, vehicleNum);
 		auto nodeSetHandler = [&](MpSolver::MpEvent &e) {
-			//if (e.getObj() > sln.totalCost) { e.stop(); } // there could be bad heuristic solutions.
-
-			// OPTIMIZE[szx][0]: check the bound and only apply this to the optimal sln.
-
 			lkh::CoordList2D coords; // OPTIMIZE[szx][3]: use adjacency matrix to avoid re-calculation and different rounding?
 			coords.reserve(nodeNum);
 			List<ID> nodeIdMap(nodeNum);
@@ -1053,7 +1096,6 @@ namespace szx {
 		CachedTspSolver tspSolver(nodeNum, TspCacheDir + env.friendlyInstName() + ".csv");
 
 		Solution curSln; copySln(curSln, sln);
-		//int step = 0, maxStep = 120;
 		auto nodeSetHandler = [&](MpSolver::MpEvent &e) {
 			lkh::CoordList2D coords;
 			coords.reserve(nodeNum);
@@ -1114,20 +1156,12 @@ namespace szx {
 			}
 			subTourHandler(e);
 			curSln.totalCost += e.getValue(holdingCost);
-			//Log(LogSwitch::Szx::Model) << "curSln=" << curSln.totalCost << ", sln=" << sln.totalCost << endl;
-
-			//printSln(curSln);
 
 			if (Math::strongLess(curSln.totalCost, sln.totalCost)) {
 				bestSlnTime = szx::Timer::Clock::now();
-				Log(LogSwitch::Szx::Model) << /*"step=" << step <<*/ ", By " << chPNum << " periods neighbor, opt=" << curSln.totalCost << endl;
+				Log(LogSwitch::Szx::Model) << "By " << chPNum << " periods neighbor, opt=" << curSln.totalCost << endl;
 				std::swap(curSln, sln);
-				//step = -1;
 			}
-
-			//Log(LogSwitch::Szx::Model) << "step=" << step << endl;
-			//++step;
-			//if (step >= maxStep) { e.stop(); }
 		};
 
 		mp.setMipSlnEvent(nodeSetHandler);
@@ -1137,8 +1171,6 @@ namespace szx {
 	}
 
 	bool Solver::changeNodeModel(Arr2D<ID> &visits, ID cn) {
-		//Log(LogSwitch::Szx::Model) << "change node " << cn << endl;
-
 		ID vehicleNum = input.vehicles_size();
 		const auto &nodes(*input.mutable_nodes());
 		MpSolver::Configuration mpCfg(MpSolver::InternalSolver::GurobiMip);
@@ -1313,16 +1345,16 @@ namespace szx {
 
 	void Solver::changeNode(Arr2D<ID> &visits, Solution &sln, int maxIter) {
 		Timer t(1000s);
-		Arr<ID> tabuNodeList(nodeNum, 0);
-		Price oldCost = aux.bestCost;
 		initQuantity(sln);
+		Price oldCost = aux.bestCost;
+		Arr<ID> tabuNodeList(nodeNum, 0);
 
-		for (int i = 0; i < maxIter; ++i) {
+		for (int i = 0,j=1; i < maxIter; ++i,++j) {
 			ID nodeId = chooseNode(tabuNodeList, i);
 			tabuNodeList[nodeId] = i + 5 + rand.pick(16);
-
 			// 一定步数之后修复路由
-			if (!changeNodeModel(visits, nodeId) && ((i + 1) % 20 == 0)) {
+			if (changeNodeModel(visits, nodeId)) { j = 0; continue; }
+			if (j % 11 == 0) {
 				Price totalCost = callModel(visits) + callLKH(visits);
 				if (Math::strongLess(totalCost, aux.bestCost)) {
 					bestSlnTime = szx::Timer::Clock::now();
@@ -1331,9 +1363,33 @@ namespace szx {
 				}
 			}
 		}
-		Log(LogSwitch::Szx::Model) << "after change node, opt=" << aux.bestCost << endl;
+		Log(LogSwitch::Szx::Model) << "dur=" << t.elapsedSeconds() << ", after change node, opt=" << aux.bestCost << endl;
 		if (Math::strongLess(aux.bestCost, oldCost)) { getBestSln(sln, aux.bestVisits); }
-		Log(LogSwitch::Szx::Model) << "change node takes " << t.elapsedSeconds() << " seconds" << endl;
+	}
+
+	void Solver::changeNode(Arr2D<ID> &visits, Solution &sln, const Timer::Millisecond &d) {
+		Timer t(d);
+		initQuantity(sln);
+		Price oldCost = aux.bestCost;
+		Arr<ID> tabuNodeList(nodeNum, 0);
+
+		int i = 0, j = 1;
+		for (; !t.isTimeOut(); ++i, ++j) {
+			ID nodeId = chooseNode(tabuNodeList, i);
+			tabuNodeList[nodeId] = i + 5 + rand.pick(16);
+			// 一定步数之后修复路由
+			if (changeNodeModel(visits, nodeId)) { j = 0; continue; }
+			if (j % 11 == 0) {
+				Price totalCost = callModel(visits) + callLKH(visits);
+				if (Math::strongLess(totalCost, aux.bestCost)) {
+					bestSlnTime = szx::Timer::Clock::now();
+					aux.bestCost = totalCost;
+					aux.bestVisits = visits;
+				}
+			}
+		}
+		Log(LogSwitch::Szx::Model) << "i = " << i << ", after change node, opt=" << aux.bestCost << endl;
+		if (Math::strongLess(aux.bestCost, oldCost)) { getBestSln(sln, aux.bestVisits); }
 	}
 
 	Price Solver::callModel(Arr2D<int> &visits) {
@@ -1400,9 +1456,7 @@ namespace szx {
 		}
 		mp.addObjective(holdingCost, MpSolver::OptimaOrientation::Minimize);
 
-		if (mp.optimize()) {
-			return mp.getObjectiveValue();
-		}
+		if (mp.optimize()) { return mp.getObjectiveValue(); }
 		return -1;
 	}
 
@@ -1454,7 +1508,7 @@ namespace szx {
 			swap(aux.curTours[p], tour.nodes);
 		}
 		Price tourCost = 0.0;
-		for (auto &price : aux.tourPrices) { tourCost += price; }
+		for (double price : aux.tourPrices) { tourCost += price; }
 		return tourCost;
 	}
 
