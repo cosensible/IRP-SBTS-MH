@@ -54,22 +54,19 @@ namespace szx {
 		//"abs.v1h6c2n25.1", "abs.v1h6c2n25.2", "abs.v1h6c2n25.3", "abs.v1h6c2n25.4", "abs.v1h6c2n25.5",
 		//"abs.v1h6c2n30.1", "abs.v1h6c2n30.2", "abs.v1h6c2n30.3", "abs.v1h6c2n30.4", "abs.v1h6c2n30.5",
 
-	/*	"abs.v1h6c1n50.1", "abs.v1h6c1n50.2", "abs.v1h6c1n50.3", "abs.v1h6c1n50.4", "abs.v1h6c1n50.5", "abs.v1h6c1n50.6", "abs.v1h6c1n50.7", "abs.v1h6c1n50.8", "abs.v1h6c1n50.9", "abs.v1h6c1n50.10",
-		"abs.v1h6c1n100.1", "abs.v1h6c1n100.2", "abs.v1h6c1n100.3", "abs.v1h6c1n100.4", "abs.v1h6c1n100.5", "abs.v1h6c1n100.6", "abs.v1h6c1n100.7", "abs.v1h6c1n100.8", "abs.v1h6c1n100.9", "abs.v1h6c1n100.10",
-		"abs.v1h6c1n200.1", "abs.v1h6c1n200.2", "abs.v1h6c1n200.3", "abs.v1h6c1n200.4", "abs.v1h6c1n200.5", "abs.v1h6c1n200.6", "abs.v1h6c1n200.7", "abs.v1h6c1n200.8", "abs.v1h6c1n200.9", "abs.v1h6c1n200.10",
-		"abs.v1h6c2n50.1", "abs.v1h6c2n50.2", "abs.v1h6c2n50.3", "abs.v1h6c2n50.4", "abs.v1h6c2n50.5", "abs.v1h6c2n50.6", "abs.v1h6c2n50.7", "abs.v1h6c2n50.8", "abs.v1h6c2n50.9", "abs.v1h6c2n50.10",
-		"abs.v1h6c2n100.1", "abs.v1h6c2n100.2", "abs.v1h6c2n100.3", "abs.v1h6c2n100.4", "abs.v1h6c2n100.5", "abs.v1h6c2n100.6", "abs.v1h6c2n100.7", "abs.v1h6c2n100.8", "abs.v1h6c2n100.9", "abs.v1h6c2n100.10",
-		"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5", "abs.v1h6c2n200.6", "abs.v1h6c2n200.7", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9", "abs.v1h6c2n200.10"*/
+		//"abs.v1h6c1n50.1", "abs.v1h6c1n50.2", "abs.v1h6c1n50.3", "abs.v1h6c1n50.4", "abs.v1h6c1n50.5", "abs.v1h6c1n50.6", "abs.v1h6c1n50.7", "abs.v1h6c1n50.8", "abs.v1h6c1n50.9", "abs.v1h6c1n50.10",
+		//"abs.v1h6c1n100.1", "abs.v1h6c1n100.2", "abs.v1h6c1n100.3", "abs.v1h6c1n100.4", "abs.v1h6c1n100.5", "abs.v1h6c1n100.6", "abs.v1h6c1n100.7", "abs.v1h6c1n100.8", "abs.v1h6c1n100.9", "abs.v1h6c1n100.10",
+		//"abs.v1h6c1n200.1", "abs.v1h6c1n200.2", "abs.v1h6c1n200.3", "abs.v1h6c1n200.4", "abs.v1h6c1n200.5", "abs.v1h6c1n200.6", "abs.v1h6c1n200.7", "abs.v1h6c1n200.8", "abs.v1h6c1n200.9", "abs.v1h6c1n200.10",
+		//"abs.v1h6c2n50.1", "abs.v1h6c2n50.2", "abs.v1h6c2n50.3", "abs.v1h6c2n50.4", "abs.v1h6c2n50.5", "abs.v1h6c2n50.6", "abs.v1h6c2n50.7", "abs.v1h6c2n50.8", "abs.v1h6c2n50.9", "abs.v1h6c2n50.10",
+		//"abs.v1h6c2n100.1", "abs.v1h6c2n100.2", "abs.v1h6c2n100.3", "abs.v1h6c2n100.4", "abs.v1h6c2n100.5", "abs.v1h6c2n100.6", "abs.v1h6c2n100.7", "abs.v1h6c2n100.8", "abs.v1h6c2n100.9", "abs.v1h6c2n100.10",
+		//"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5", "abs.v1h6c2n200.6", "abs.v1h6c2n200.7", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9", "abs.v1h6c2n200.10"
 
-		"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5", "abs.v1h6c2n200.6", "abs.v1h6c2n200.7", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9",
-		"abs.v1h6c2n100.4", /*"abs.v1h6c2n100.6", "abs.v1h6c2n100.8",*/ "abs.v1h6c2n100.10",
-		"abs.v1h6c1n200.1", "abs.v1h6c1n200.2", "abs.v1h6c1n200.6", //"abs.v1h6c1n200.7",
-		"abs.v1h6c1n100.2"
-		////, "abs.v1h6c1n100.3",
-		////"abs.v1h6c1n50.6",  /*"abs.v1h6c2n50.2",*/  "abs.v1h6c2n50.6",
-		////"abs.v1h6c1n50.7",  "abs.v1h6c1n200.3", "abs.v1h6c1n200.8", "abs.v1h6c1n200.9",
-		////"abs.v1h6c2n50.1",  "abs.v1h6c2n50.9",  "abs.v1h6c2n100.3", "abs.v1h6c2n200.10"
-		////"abs.v1h6c2n200.2", "abs.v1h6c2n200.6"
+		"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5", "abs.v1h6c2n200.6", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9",
+		"abs.v1h6c2n100.4", //"abs.v1h6c2n100.6",
+		"abs.v1h6c1n200.1", "abs.v1h6c1n200.2", "abs.v1h6c1n200.6",
+		"abs.v1h6c1n100.2", "abs.v1h6c1n100.3",
+		"abs.v1h6c1n50.6"
+
 		});
 
 	void Simulator::initDefaultEnvironment() {
@@ -104,8 +101,6 @@ namespace szx {
 	}
 
 	void Simulator::run(const Task &task) {
-		//String instanceName(task.instSet + task.instId + ".json");
-		//String solutionName(task.instSet + task.instId + ".json");
 		System::makeSureDirExist(SolutionDir());
 
 		char argBuf[Cmd::MaxArgNum][Cmd::MaxArgLen];
@@ -116,43 +111,10 @@ namespace szx {
 		int argc = ArgIndex::ArgStart;
 
 		strcpy(argv[argc++], Cmd::InstancePathOption().c_str());
-		//strcpy(argv[argc++], (InstanceDir() + instanceName).c_str());
 		strcpy(argv[argc++], (InstanceDir() + task.instanceName()).c_str());
-
-		//System::makeSureDirExist(SolutionDir());
 		strcpy(argv[argc++], Cmd::SolutionPathOption().c_str());
-		/*strcpy(argv[argc++], (SolutionDir() + solutionName).c_str());
-
-		if (!task.randSeed.empty()) {
-			strcpy(argv[argc++], Cmd::RandSeedOption().c_str());
-			strcpy(argv[argc++], task.randSeed.c_str());
-		}*/
 		strcpy(argv[argc++], (SolutionDir() + task.solutionName()).c_str());
 
-		/*if (!task.timeout.empty()) {
-			strcpy(argv[argc++], Cmd::TimeoutOption().c_str());
-			strcpy(argv[argc++], task.timeout.c_str());
-		}
-
-		if (!task.maxIter.empty()) {
-			strcpy(argv[argc++], Cmd::MaxIterOption().c_str());
-			strcpy(argv[argc++], task.maxIter.c_str());
-		}
-
-		if (!task.jobNum.empty()) {
-			strcpy(argv[argc++], Cmd::JobNumOption().c_str());
-			strcpy(argv[argc++], task.jobNum.c_str());
-		}
-
-		if (!task.runId.empty()) {
-			strcpy(argv[argc++], Cmd::RunIdOption().c_str());
-			strcpy(argv[argc++], task.runId.c_str());
-		}
-
-		if (!task.cfgPath.empty()) {
-			strcpy(argv[argc++], Cmd::ConfigPathOption().c_str());
-			strcpy(argv[argc++], task.cfgPath.c_str());
-		}*/
 		auto addOption = [&](const String &key, const String &value) {
 			if (!value.empty()) {
 				strcpy(argv[argc++], key.c_str());
@@ -160,11 +122,6 @@ namespace szx {
 			}
 		};
 
-
-		/*if (!task.logPath.empty()) {
-			strcpy(argv[argc++], Cmd::LogPathOption().c_str());
-			strcpy(argv[argc++], task.logPath.c_str());
-		}*/
 		addOption(Cmd::RandSeedOption(), task.randSeed);
 		addOption(Cmd::TimeoutOption(), task.timeout);
 		addOption(Cmd::MaxIterOption(), task.maxIter);
@@ -193,9 +150,9 @@ namespace szx {
 	void Simulator::debug() {
 		Task task;
 		task.instSet = "";
-		task.instId = "abs.v1h6c2n200.6";
+		task.instId = "abs.v1h6c1n100.10";
 		task.timeout = "360";
-		task.randSeed = "1559503930";
+		task.randSeed = "1559429277";
 		//task.randSeed = to_string(Random::generateSeed());
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
@@ -224,10 +181,9 @@ namespace szx {
 	}
 
 	void Simulator::benchmark(int repeat) {
-	/*
-		Task task;
+	/*	Task task;
 		task.instSet = "";
-		task.timeout = "2700";
+		task.timeout = "360";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
@@ -259,24 +215,23 @@ namespace szx {
 				task.runId = to_string(i);
 				run(task);
 			}
-		}
-	*/
+		}*/
 
 		Task task;
 		task.instSet = "";
 
 		task.instId = "abs.v1h6c2n200.6";
-		//task.randSeed = to_string(Random::generateSeed());
+		//task.randSeed = "1559477260";
 
-		task.timeout = "1800";
+		task.timeout = "3000";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
-
 		for (int i = 0; i < repeat; ++i) {
 			task.randSeed = to_string(Random::generateSeed());
 			task.runId = to_string(i);
 			run(task);
+			this_thread::sleep_for(1s);
 		}
 	}
 
@@ -315,7 +270,7 @@ namespace szx {
 	void Simulator::parallelBenchmark(int repeat) {
 		Task task;
 		task.instSet = "";
-		task.timeout = "1800";
+		task.timeout = "3000";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
