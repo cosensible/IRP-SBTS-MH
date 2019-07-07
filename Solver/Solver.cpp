@@ -235,7 +235,8 @@ namespace szx {
 			<< mu.physicalMemory << "," << mu.virtualMemory << ","
 			<< env.randSeed << ","
 			<< cfg.toBriefStr() << ","
-			<< generation << "," << iteration;
+			<< generation << "," << iteration
+			<< Timer::durationInSecond(timer.getStartTime(), modelTime);
 
 		// record solution vector.
 		// EXTEND[szx][2]: save solution in log.
@@ -615,19 +616,21 @@ namespace szx {
 	}
 
 	void Solver::execSearch(Solution &sln) {
-		timer = Timer(10800s, timer.getStartTime());
+		timer = Timer(14400s, timer.getStartTime());
 		bestSlnTime = timer.getEndTime();
 
 		iteratedModel(sln);
+		modelTime = bestSlnTime;
+
 		for (int i = 0; i < 2; ++i) {
 			for (ID p = 0; p < periodNum - 2; ++p) {
-				getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 360);
+				getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 480);
 			}
 		}
 
 		for (ID i = 0; i < 2; ++i) {
 			for (ID p = 0; p < periodNum - 1; ++p) {
-				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 180);
+				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 240);
 			}
 		}
 		

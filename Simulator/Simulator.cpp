@@ -180,49 +180,13 @@ namespace szx {
 	}
 
 	void Simulator::benchmark(int repeat) {
-	/*	Task task;
-		task.instSet = "";
-		task.timeout = "360";
-		task.jobNum = "1";
-		task.cfgPath = Env::DefaultCfgPath();
-		task.logPath = Env::DefaultLogPath();
-
-		random_device rd;
-		mt19937 rgen(rd());
-		//for (int i = 0; i < repeat; ++i) {
-		//    //shuffle(instList.begin(), instList.end(), rgen);
-		//    for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
-		//        task.instId = *inst;
-		//        task.randSeed = to_string(Random::generateSeed());
-		//        task.runId = to_string(i);
-		//        run(task);
-		//    }
-		//}
-		fstream inst_list;
-		inst_list.open("list.txt", ios::in);
-		vector<String> all_inst;
-		String tmp;
-		getline(inst_list, tmp);
-		all_inst = split(tmp, ",");
-		for (auto a = all_inst.begin(); a != all_inst.end(); a++)cout << *a << endl;
-
-		for (int i = 0; i < repeat; ++i) {
-			//shuffle(instList.begin(), instList.end(), rgen);
-			for (auto inst = all_inst.begin(); inst != all_inst.end(); ++inst) {
-				task.instId = *inst;
-				task.randSeed = to_string(Random::generateSeed());
-				task.runId = to_string(i);
-				run(task);
-			}
-		}*/
-
 		Task task;
 		task.instSet = "";
 
 		task.instId = "abs.v1h6c2n200.6";
 		//task.randSeed = "1559477260";
 
-		task.timeout = "3000";
+		task.timeout = "3600";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
@@ -246,7 +210,7 @@ namespace szx {
 	void Simulator::parallelBenchmark(int repeat) {
 		Task task;
 		task.instSet = "";
-		task.timeout = "3000";
+		task.timeout = "3600";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
