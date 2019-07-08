@@ -186,7 +186,7 @@ namespace szx {
 		task.instId = "abs.v1h6c2n200.6";
 		//task.randSeed = "1559477260";
 
-		task.timeout = "3600";
+		task.timeout = "3000";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
@@ -210,7 +210,7 @@ namespace szx {
 	void Simulator::parallelBenchmark(int repeat) {
 		Task task;
 		task.instSet = "";
-		task.timeout = "3600";
+		task.timeout = "3000";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
@@ -219,7 +219,7 @@ namespace szx {
 		random_device rd;
 		mt19937 rgen(rd());
 		for (auto inst = instList.begin(); inst != instList.end(); ++inst) {
-		//for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
+			//for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
 			task.instId = *inst;
 			tp.push([&, task, repeat]() { parallelrun(task, repeat); });
 			this_thread::sleep_for(10s);

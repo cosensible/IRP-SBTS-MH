@@ -73,7 +73,7 @@ namespace szx {
 		submission.set_instance(env.friendlyInstName());
 		//submission.set_duration(to_string(solver.timer.elapsedSeconds()) + "s");
 		submission.set_duration(to_string(Timer::durationInSecond(solver.timer.getStartTime(), solver.bestSlnTime)) + "s");
-		
+
 		submission.set_obj(solver.output.totalCost);
 
 		solver.output.save(env.slnPath, submission);
@@ -235,8 +235,7 @@ namespace szx {
 			<< mu.physicalMemory << "," << mu.virtualMemory << ","
 			<< env.randSeed << ","
 			<< cfg.toBriefStr() << ","
-			<< generation << "," << iteration
-			<< Timer::durationInSecond(timer.getStartTime(), modelTime);
+			<< generation << "," << iteration;
 
 		// record solution vector.
 		// EXTEND[szx][2]: save solution in log.
@@ -424,15 +423,26 @@ namespace szx {
 				visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 0;
 			}
 
-			std::sort(aux.mixNeigh.begin(), aux.mixNeigh.end(), [](const Actor &a1, const Actor &a2) {return a1.totalCost < a2.totalCost; });
+			if (aux.mixNeigh.empty()) { return 0; }
+			std::sort(aux.mixNeigh.begin(), aux.mixNeigh.end(), [](Actor &a1, Actor &a2) {return a1.totalCost < a2.totalCost; });
 
+			//for (auto i = aux.mixNeigh.cbegin(); i != aux.mixNeigh.cend(); ++i) {
+			//	cout << i->totalCost << " ";
+			//}
+			//cout << endl;
+
+			// 禁忌估计成本近似的邻居解
+			int num = aux.mixNeigh.size();	// num 为第一批值相等的邻居的数量
 			for (auto i = aux.mixNeigh.begin(), j = i + 1; j != aux.mixNeigh.end(); ++j) {
-				if (Math::weakEqual(i->totalCost, j->totalCost, 0.1)) {
+				if (Math::weakEqual(i->totalCost, j->totalCost, 0.5)) {
 					execTabu(hashValue1, hashValue2, hashValue3, *j);
 				}
-				else { i = j; }
+				else {
+					if (num == aux.mixNeigh.size()) { num = distance(i, j); }
+					i = j;
+				}
 			}
-			return aux.mixNeigh.size() > 5 ? 5 : aux.mixNeigh.size();
+			return num;
 		*/
 
 		for (ID i = 0; i < maxSize && i < delNeigh.size(); ++i) {
@@ -441,12 +451,12 @@ namespace szx {
 			visits[del.p2][del.n2] = 0;
 			if ((del.modelCost = callModel(visits)) >= 0) {
 				del.totalCost += del.modelCost;
-				if (Math::strongLess(del.totalCost, minCost)) {
+				if (Math::strongLess(del.totalCost, minCost, 0.05)) {
 					aux.mixNeigh.clear();
 					minCost = del.totalCost;
 					aux.mixNeigh.push_back(del);
 				}
-				else if (Math::weakEqual(del.totalCost, minCost)) {
+				else if (Math::weakEqual(del.totalCost, minCost, 0.05)) {
 					aux.mixNeigh.push_back(del);
 				}
 			}
@@ -459,12 +469,12 @@ namespace szx {
 			visits[mov.p1][mov.n1] = 1; visits[mov.p2][mov.n2] = 0;
 			if ((mov.modelCost = callModel(visits)) >= 0) {
 				mov.totalCost += mov.modelCost;
-				if (Math::strongLess(mov.totalCost, minCost)) {
+				if (Math::strongLess(mov.totalCost, minCost, 0.05)) {
 					aux.mixNeigh.clear();
 					minCost = mov.totalCost;
 					aux.mixNeigh.push_back(mov);
 				}
-				else if (Math::weakEqual(mov.totalCost, minCost)) {
+				else if (Math::weakEqual(mov.totalCost, minCost, 0.05)) {
 					aux.mixNeigh.push_back(mov);
 				}
 			}
@@ -478,12 +488,12 @@ namespace szx {
 			visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 1;
 			if ((swp.modelCost = callModel(visits)) >= 0) {
 				swp.totalCost += swp.modelCost;
-				if (Math::strongLess(swp.totalCost, minCost)) {
+				if (Math::strongLess(swp.totalCost, minCost, 0.05)) {
 					aux.mixNeigh.clear();
 					minCost = swp.totalCost;
 					aux.mixNeigh.push_back(swp);
 				}
-				else if (Math::weakEqual(swp.totalCost, minCost)) {
+				else if (Math::weakEqual(swp.totalCost, minCost, 0.05)) {
 					aux.mixNeigh.push_back(swp);
 				}
 			}
@@ -561,7 +571,7 @@ namespace szx {
 		Price totalCost = callModel(visits) + callLKH(visits);
 		Log(LogSwitch::Szx::Search) << "After disturb, cost=" << totalCost << endl;
 
-		if (Math::strongLess(totalCost, aux.bestCost,0.1)) {
+		if (Math::strongLess(totalCost, aux.bestCost)) {
 			bestSlnTime = szx::Timer::Clock::now();
 			aux.bestCost = totalCost;
 			aux.bestVisits = visits;
@@ -573,7 +583,7 @@ namespace szx {
 
 	bool Solver::mixTabuSearch(Arr2D<ID> &visits, Price modelCost) {
 		execTabu(visits, true);
-		bool isImproved = false; ID mixNeighSize;
+		bool isImproved = false; ID mixNeighSize = 0;
 		for (ID step = 0; !timer.isTimeOut() && step < alpha && (mixNeighSize = buildMixNeigh(visits)); ++step) {
 			const auto &act(aux.mixNeigh[rand.pick(mixNeighSize)]);
 			if (act.actype == ActorType::SWP) {
@@ -586,7 +596,7 @@ namespace szx {
 			}
 			modelCost = act.modelCost + callLKH(visits, act.p1, act.p2);
 			execTabu(act);
-			if (Math::strongLess(modelCost, aux.bestCost,0.1)) {
+			if (Math::strongLess(modelCost, aux.bestCost)) {
 				bestSlnTime = szx::Timer::Clock::now();
 				isImproved = true;
 				step = -1;
@@ -616,16 +626,13 @@ namespace szx {
 	}
 
 	void Solver::execSearch(Solution &sln) {
-		timer = Timer(14400s, timer.getStartTime());
+		timer = Timer(10800s, timer.getStartTime());
 		bestSlnTime = timer.getEndTime();
 
 		iteratedModel(sln);
-		modelTime = bestSlnTime;
 
-		for (int i = 0; i < 2; ++i) {
-			for (ID p = 0; p < periodNum - 2; ++p) {
-				getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 480);
-			}
+		for (ID p = 0; p < periodNum - 2; ++p) {
+			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 480);
 		}
 
 		for (ID i = 0; i < 2; ++i) {
@@ -633,7 +640,7 @@ namespace szx {
 				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 240);
 			}
 		}
-		
+
 		aux.curVisits = aux.bestVisits;
 		mixTabuSearch(aux.curVisits, aux.bestCost);
 		mixFinalSearch();
@@ -654,7 +661,7 @@ namespace szx {
 	void Solver::iteratedModel(Solution &sln) {
 		ID vehicleNum = input.vehicles_size();
 		const auto &nodes(*input.mutable_nodes());
-		MpSolver::Configuration mpCfg(MpSolver::InternalSolver::GurobiMip, env.timeoutInSecond());
+		MpSolver::Configuration mpCfg(MpSolver::InternalSolver::GurobiMip, env.timeoutInSecond(), true, false);
 		MpSolver mp(mpCfg); mp.setMaxThread(4);
 
 		// delivery[p, v, n] is the quantity delivered to node n at period p by vehicle v.
@@ -761,6 +768,7 @@ namespace szx {
 				}
 			}
 		}
+
 
 		double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
 		obj = holdingCost + tourcostFactor * routingCost;
@@ -882,6 +890,8 @@ namespace szx {
 			}
 			//e.addLazy(nodeDiff >= 1);
 			subTourHandler(e);
+
+			//Log(LogSwitch::Szx::Model) << "model.routingcost=" << e.getValue(routingCost) << ", lkh.routingcost=" << curSln.totalCost << ", rate=" << 1.0*curSln.totalCost / e.getValue(routingCost) << endl;
 			curSln.totalCost += e.getValue(holdingCost);
 
 			if (Math::strongLess(curSln.totalCost, sln.totalCost)) {
@@ -1026,6 +1036,7 @@ namespace szx {
 				}
 			}
 		}
+
 
 		double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
 		obj = holdingCost + tourcostFactor * routingCost;
@@ -1219,6 +1230,7 @@ namespace szx {
 					double quantityCoef = (n >= input.depotnum()) ? 1 : -1;
 					mp.addConstraint(quantityCoef * delivery[p][v][n] <= capacity * visits[p][n]);
 				}
+				// quantity matching constraint.
 				mp.addConstraint(quantity == 0);
 			}
 		}
