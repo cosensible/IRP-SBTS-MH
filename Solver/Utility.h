@@ -57,7 +57,7 @@ namespace szx {
 	class Arr {
 	public:
 		// it is always valid before copy assignment due to no reallocation.
-44		using Iterator = T * ;
+		using Iterator = T * ;
 		using ConstIterator = T const *;
 
 		enum ResetOption { AllBits0 = 0, AllBits1 = -1 };

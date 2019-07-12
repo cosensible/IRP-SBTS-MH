@@ -184,14 +184,14 @@ namespace szx {
 		task.instSet = "";
 
 		task.instId = "abs.v1h6c2n200.6";
-		//task.randSeed = "1559477260";
+		task.randSeed = "1596309919";
 
 		task.timeout = "3000";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
 		for (int i = 0; i < repeat; ++i) {
-			task.randSeed = to_string(Random::generateSeed());
+			//task.randSeed = to_string(Random::generateSeed());
 			task.runId = to_string(i);
 			run(task);
 			this_thread::sleep_for(1s);
