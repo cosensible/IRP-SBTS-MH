@@ -61,11 +61,10 @@ namespace szx {
 		//"abs.v1h6c2n100.1", "abs.v1h6c2n100.2", "abs.v1h6c2n100.3", "abs.v1h6c2n100.4", "abs.v1h6c2n100.5", "abs.v1h6c2n100.6", "abs.v1h6c2n100.7", "abs.v1h6c2n100.8", "abs.v1h6c2n100.9", "abs.v1h6c2n100.10",
 		//"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5", "abs.v1h6c2n200.6", "abs.v1h6c2n200.7", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9", "abs.v1h6c2n200.10"
 
-		"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5", "abs.v1h6c2n200.6", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9",
-		"abs.v1h6c2n100.4", //"abs.v1h6c2n100.6",
+		"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5",
+		"abs.v1h6c2n200.6", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9", "abs.v1h6c2n100.4",
 		"abs.v1h6c1n200.1", "abs.v1h6c1n200.2", "abs.v1h6c1n200.6",
-		"abs.v1h6c1n100.2", "abs.v1h6c1n100.3",
-		"abs.v1h6c1n50.6"
+		"abs.v1h6c1n100.2", "abs.v1h6c1n100.3", "abs.v1h6c1n50.6"
 
 		});
 
@@ -181,82 +180,23 @@ namespace szx {
 	}
 
 	void Simulator::benchmark(int repeat) {
-	/*	Task task;
-		task.instSet = "";
-		task.timeout = "360";
-		task.jobNum = "1";
-		task.cfgPath = Env::DefaultCfgPath();
-		task.logPath = Env::DefaultLogPath();
-
-		random_device rd;
-		mt19937 rgen(rd());
-		//for (int i = 0; i < repeat; ++i) {
-		//    //shuffle(instList.begin(), instList.end(), rgen);
-		//    for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
-		//        task.instId = *inst;
-		//        task.randSeed = to_string(Random::generateSeed());
-		//        task.runId = to_string(i);
-		//        run(task);
-		//    }
-		//}
-		fstream inst_list;
-		inst_list.open("list.txt", ios::in);
-		vector<String> all_inst;
-		String tmp;
-		getline(inst_list, tmp);
-		all_inst = split(tmp, ",");
-		for (auto a = all_inst.begin(); a != all_inst.end(); a++)cout << *a << endl;
-
-		for (int i = 0; i < repeat; ++i) {
-			//shuffle(instList.begin(), instList.end(), rgen);
-			for (auto inst = all_inst.begin(); inst != all_inst.end(); ++inst) {
-				task.instId = *inst;
-				task.randSeed = to_string(Random::generateSeed());
-				task.runId = to_string(i);
-				run(task);
-			}
-		}*/
-
 		Task task;
 		task.instSet = "";
 
 		task.instId = "abs.v1h6c2n200.6";
-		//task.randSeed = "1559477260";
+		task.randSeed = "1596309919";
 
-		task.timeout = "3000";
+		task.timeout = "360";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
 		for (int i = 0; i < repeat; ++i) {
-			task.randSeed = to_string(Random::generateSeed());
+			//task.randSeed = to_string(Random::generateSeed());
 			task.runId = to_string(i);
 			run(task);
 			this_thread::sleep_for(1s);
 		}
 	}
-
-	//void Simulator::parallelBenchmark(int repeat) {
-	//	Task task;
-	//	task.instSet = "";
-	//	task.timeout = "360";
-	//	task.jobNum = "1";
-	//	task.cfgPath = Env::DefaultCfgPath();
-	//	task.logPath = Env::DefaultLogPath();
-	//	ThreadPool<> tp(15);
-	//	random_device rd;
-	//	mt19937 rgen(rd());
-	//	for (int i = 0; i < repeat; ++i) {
-	//		for (auto inst = instList.begin(); inst != instList.end(); ++inst) {
-	//			//for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
-	//			task.instId = *inst;
-	//			task.runId = to_string(i);
-	//			task.randSeed = to_string(Random::generateSeed());
-	//			//tp.push([=]() { run(task); });
-	//			tp.push([=]() { exe(task); });
-	//			this_thread::sleep_for(1s);
-	//		}
-	//	}
-	//}
 
 	void Simulator::parallelrun(Task task, int repeat) {
 		for (int i = 0; i < repeat; ++i) {
@@ -279,9 +219,8 @@ namespace szx {
 		random_device rd;
 		mt19937 rgen(rd());
 		for (auto inst = instList.begin(); inst != instList.end(); ++inst) {
-		//for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
+			//for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
 			task.instId = *inst;
-			//tp.push([=]() { run(task); });
 			tp.push([&, task, repeat]() { parallelrun(task, repeat); });
 			this_thread::sleep_for(10s);
 		}

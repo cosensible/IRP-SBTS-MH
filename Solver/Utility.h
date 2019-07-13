@@ -726,8 +726,11 @@ class Math {
 public:
     static constexpr double DefaultTolerance = 0.01;
 
+	//static bool weakEqual(double l, double r, double tolerance = DefaultTolerance) {
+	//	return (std::abs(l - r) < tolerance);
+	//}
     static bool weakEqual(double l, double r, double tolerance = DefaultTolerance) {
-        return (std::abs(l - r) < tolerance);
+        return (std::abs(l - r) <= tolerance);
     }
     static bool weakLess(double l, double r, double tolerance = DefaultTolerance) { // operator<=().
         return ((l - r) < tolerance);
