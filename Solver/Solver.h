@@ -278,7 +278,6 @@ namespace szx {
 		ID periodNum, nodeNum;
 		List<bool> H1, H2, H3;
 		unsigned hashValue1, hashValue2, hashValue3;
-		bool rmvDel, rmvSwp;
 
 		struct {
 			Arr2D<Price> routingCost;

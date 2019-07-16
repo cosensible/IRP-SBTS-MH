@@ -161,24 +161,6 @@ namespace szx {
 		run(task);
 	}
 
-	vector<string> split(const string &str, const string &pattern)
-	{
-		//const char* convert to char*
-		char * strc = new char[strlen(str.c_str()) + 1];
-		strcpy(strc, str.c_str());
-		vector<string> resultVec;
-		char* tmpStr = strtok(strc, pattern.c_str());
-		while (tmpStr != NULL)
-		{
-			resultVec.push_back(string(tmpStr));
-			tmpStr = strtok(NULL, pattern.c_str());
-		}
-
-		delete[] strc;
-
-		return resultVec;
-	}
-
 	void Simulator::benchmark(int repeat) {
 		Task task;
 		task.instSet = "";
@@ -186,7 +168,7 @@ namespace szx {
 		task.instId = "abs.v1h6c2n200.6";
 		task.randSeed = "1596309919";
 
-		task.timeout = "360";
+		task.timeout = "600";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
@@ -203,7 +185,7 @@ namespace szx {
 			task.runId = to_string(i);
 			task.randSeed = to_string(Random::generateSeed());
 			exe(task);
-			this_thread::sleep_for(2s);
+			this_thread::sleep_for(1s);
 		}
 	}
 
@@ -222,7 +204,7 @@ namespace szx {
 			//for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
 			task.instId = *inst;
 			tp.push([&, task, repeat]() { parallelrun(task, repeat); });
-			this_thread::sleep_for(10s);
+			this_thread::sleep_for(15s);
 		}
 	}
 

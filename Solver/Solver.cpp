@@ -429,7 +429,7 @@ namespace szx {
 			//cout << endl;
 
 			// 禁忌估计成本近似的邻居解
-			int num = aux.mixNeigh.size();	// num 为第一批值相等的邻居的数量
+			int num = aux.mixNeigh.size();
 			for (auto i = aux.mixNeigh.begin(), j = i + 1; j != aux.mixNeigh.end(); ++j) {
 				if (Math::weakEqual(i->totalCost, j->totalCost, 0.5)) {
 					execTabu(hashValue1, hashValue2, hashValue3, *j);
@@ -439,7 +439,7 @@ namespace szx {
 					i = j;
 				}
 			}
-			return num;
+			return num;	// num 为第一批值相等的邻居的数量
 		*/
 
 		for (ID i = 0; i < maxSize && i < delNeigh.size(); ++i) {
@@ -577,7 +577,7 @@ namespace szx {
 	}
 
 	bool Solver::mixTabuSearch(Arr2D<ID> &visits, Price modelCost) {
-		execTabu(visits, true);
+		execTabu(visits, true);	// 禁忌起始解，并初始化全局 hashValue
 		bool isImproved = false; ID mixNeighSize = 0;
 		for (ID step = 0; !timer.isTimeOut() && step < alpha && (mixNeighSize = buildMixNeigh(visits)); ++step) {
 			const auto &act(aux.mixNeigh[rand.pick(mixNeighSize)]);
@@ -589,8 +589,9 @@ namespace szx {
 				if (act.n1 > 0) visits[act.p1][act.n1] = 1;
 				if (act.n2 > 0) visits[act.p2][act.n2] = 0;
 			}
+			// 精确计算路由，得到精确总成本
 			modelCost = act.modelCost + callLKH(visits, act.p1, act.p2);
-			execTabu(act);
+			execTabu(act);	// 会改变全局 hashValue
 			if (Math::strongLess(modelCost, aux.bestCost)) {
 				bestSlnTime = szx::Timer::Clock::now();
 				isImproved = true;
@@ -605,6 +606,7 @@ namespace szx {
 	}
 
 	void Solver::mixFinalSearch() {
+		//// 从历史最优或者当前解出发进行扰动
 		//double gamma = 0.99;	// epsilon 衰减系数
 		//for (int i = 0; !timer.isTimeOut(); ++i) {
 		//	int p = 100000 * std::pow(gamma, i);	
@@ -622,14 +624,14 @@ namespace szx {
 
 	void Solver::execSearch(Solution &sln) {
 		timer = Timer(3600s, timer.getStartTime());
-		bestSlnTime = timer.getEndTime();
+		bestSlnTime = timer.getEndTime();// 找到最优解的时间
 
-		iteratedModel(sln);
+		iteratedModel(sln);	// 完整松弛模型
 
-		for (ID p = 0; p < periodNum - 2; ++p) {
+		for (ID p = 0; p < periodNum - 2; ++p) {// 三相邻周期模型
 			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 180);
 		}
-
+		// 两轮两相邻周期模型
 		for (ID i = 0; i < 2; ++i) {
 			for (ID p = 0; p < periodNum - 1; ++p) {
 				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 90);
@@ -640,13 +642,14 @@ namespace szx {
 		mixTabuSearch(aux.curVisits, aux.bestCost);
 		mixFinalSearch();
 
-		getBestSln(sln, aux.bestVisits);
+		getBestSln(sln, aux.bestVisits);	// 还原历史最优解
 	}
 
 	bool Solver::optimize(Solution &sln, ID workerId) {
 		Log(LogSwitch::Szx::Framework) << "worker " << workerId << " starts." << endl;
-
 		sln.init(periodNum, input.vehicles_size(), Problem::MaxCost);
+
+		// 创建全局LKH求解器
 		static const String TspCacheDir("TspCache/");
 		System::makeSureDirExist(TspCacheDir);
 		tspSolver = new CachedTspSolver(nodeNum, TspCacheDir + env.friendlyInstName() + ".csv");
@@ -1099,10 +1102,6 @@ namespace szx {
 			}
 		};
 
-		//static const String TspCacheDir("TspCache/");
-		//System::makeSureDirExist(TspCacheDir);
-		//CachedTspSolver tspSolver(nodeNum, TspCacheDir + env.friendlyInstName() + ".csv");
-
 		Solution curSln; copySln(curSln, sln);
 		auto nodeSetHandler = [&](MpSolver::MpEvent &e) {
 			lkh::CoordList2D coords;
@@ -1181,7 +1180,7 @@ namespace szx {
 	Price Solver::callModel(Arr2D<int> &visits) {
 		ID vehicleNum = input.vehicles_size();
 		const auto &nodes(*input.mutable_nodes());
-		MpSolver::Configuration mpCfg(MpSolver::InternalSolver::GurobiMip);
+		MpSolver::Configuration mpCfg;
 		MpSolver mp(mpCfg);
 
 		// delivery[p, v, n] is the quantity delivered to node n at period p by vehicle v.
@@ -1248,7 +1247,6 @@ namespace szx {
 
 	Price Solver::callLKH(const Arr2D<ID> &visits, ID p1, ID p2) {
 		const auto &nodes(*input.mutable_nodes());
-
 		lkh::CoordList2D coords;
 		coords.reserve(nodeNum);
 		List<ID> nodeIdMap(nodeNum);
@@ -1346,7 +1344,7 @@ namespace szx {
 	void Solver::getBestSln(Solution &sln, const Arr2D<ID> &visits) {
 		ID vehicleNum = input.vehicles_size();
 		const auto &nodes(*input.mutable_nodes());
-		MpSolver::Configuration mpCfg(MpSolver::InternalSolver::GurobiMip);
+		MpSolver::Configuration mpCfg;
 		MpSolver mp(mpCfg);
 
 		// delivery[p, v, n] is the quantity delivered to node n at period p by vehicle v.
