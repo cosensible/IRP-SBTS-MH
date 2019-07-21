@@ -161,73 +161,19 @@ namespace szx {
 		run(task);
 	}
 
-	vector<string> split(const string &str, const string &pattern)
-	{
-		//const char* convert to char*
-		char * strc = new char[strlen(str.c_str()) + 1];
-		strcpy(strc, str.c_str());
-		vector<string> resultVec;
-		char* tmpStr = strtok(strc, pattern.c_str());
-		while (tmpStr != NULL)
-		{
-			resultVec.push_back(string(tmpStr));
-			tmpStr = strtok(NULL, pattern.c_str());
-		}
-
-		delete[] strc;
-
-		return resultVec;
-	}
-
 	void Simulator::benchmark(int repeat) {
-	/*	Task task;
-		task.instSet = "";
-		task.timeout = "360";
-		task.jobNum = "1";
-		task.cfgPath = Env::DefaultCfgPath();
-		task.logPath = Env::DefaultLogPath();
-
-		random_device rd;
-		mt19937 rgen(rd());
-		//for (int i = 0; i < repeat; ++i) {
-		//    //shuffle(instList.begin(), instList.end(), rgen);
-		//    for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
-		//        task.instId = *inst;
-		//        task.randSeed = to_string(Random::generateSeed());
-		//        task.runId = to_string(i);
-		//        run(task);
-		//    }
-		//}
-		fstream inst_list;
-		inst_list.open("list.txt", ios::in);
-		vector<String> all_inst;
-		String tmp;
-		getline(inst_list, tmp);
-		all_inst = split(tmp, ",");
-		for (auto a = all_inst.begin(); a != all_inst.end(); a++)cout << *a << endl;
-
-		for (int i = 0; i < repeat; ++i) {
-			//shuffle(instList.begin(), instList.end(), rgen);
-			for (auto inst = all_inst.begin(); inst != all_inst.end(); ++inst) {
-				task.instId = *inst;
-				task.randSeed = to_string(Random::generateSeed());
-				task.runId = to_string(i);
-				run(task);
-			}
-		}*/
-
 		Task task;
 		task.instSet = "";
 
 		task.instId = "abs.v1h6c2n200.6";
-		//task.randSeed = "1559477260";
+		task.randSeed = "1596309919";
 
-		task.timeout = "3000";
+		task.timeout = "600";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
 		for (int i = 0; i < repeat; ++i) {
-			task.randSeed = to_string(Random::generateSeed());
+			//task.randSeed = to_string(Random::generateSeed());
 			task.runId = to_string(i);
 			run(task);
 			this_thread::sleep_for(1s);
@@ -239,7 +185,7 @@ namespace szx {
 			task.runId = to_string(i);
 			task.randSeed = to_string(Random::generateSeed());
 			exe(task);
-			this_thread::sleep_for(2s);
+			this_thread::sleep_for(1s);
 		}
 	}
 
@@ -255,11 +201,10 @@ namespace szx {
 		random_device rd;
 		mt19937 rgen(rd());
 		for (auto inst = instList.begin(); inst != instList.end(); ++inst) {
-		//for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
+			//for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
 			task.instId = *inst;
-			//tp.push([=]() { run(task); });
 			tp.push([&, task, repeat]() { parallelrun(task, repeat); });
-			this_thread::sleep_for(10s);
+			this_thread::sleep_for(15s);
 		}
 	}
 

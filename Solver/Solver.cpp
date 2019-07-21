@@ -7,12 +7,10 @@
 #include <string>
 #include <thread>
 #include <mutex>
-
 #include <cmath>
 
 #include "CsvReader.h"
 #include "MpSolver.h"
-#include "CachedTspSolver.h"
 
 using namespace std;
 
@@ -73,7 +71,7 @@ namespace szx {
 		submission.set_instance(env.friendlyInstName());
 		//submission.set_duration(to_string(solver.timer.elapsedSeconds()) + "s");
 		submission.set_duration(to_string(Timer::durationInSecond(solver.timer.getStartTime(), solver.bestSlnTime)) + "s");
-		
+
 		submission.set_obj(solver.output.totalCost);
 
 		solver.output.save(env.slnPath, submission);
@@ -288,8 +286,7 @@ namespace szx {
 	void Solver::init() {
 		nodeNum = input.nodes_size(), periodNum = input.periodnum();
 		aux.routingCost.init(nodeNum, nodeNum);
-		aux.quanLevels.init(nodeNum, periodNum + 1);
-		aux.routingCost.reset(); aux.quanLevels.reset();
+		aux.routingCost.reset();
 		aux.bestVisits.init(periodNum, nodeNum);
 		aux.curVisits.init(periodNum, nodeNum);
 		aux.curTours.init(periodNum);	//当前路由集合
@@ -305,10 +302,9 @@ namespace szx {
 			}
 		}
 
-		aux.initHoldingCost = 0; n = 0;
-		for (auto i = input.nodes().begin(); i != input.nodes().end(); ++i,++n) {
+		aux.initHoldingCost = 0;
+		for (auto i = input.nodes().begin(); i != input.nodes().end(); ++i) {
 			aux.initHoldingCost += i->holdingcost() * i->initquantity();
-			aux.quanLevels[n][0] = i->initquantity();
 		}
 	}
 
@@ -322,12 +318,14 @@ namespace szx {
 			aux.curTours[p].clear();
 			for (ID v = 0; v < input.vehicles_size(); ++v) {
 				auto &delivs(*sln.mutable_periodroutes(p)->mutable_vehicleroutes(v)->mutable_deliveries());
-				if (delivs.empty()) { aux.curTours[p] = { 0,0 }; } 
-				else { aux.curTours[p].push_back(delivs.rbegin()->node()); } // 路线中加入仓库
-				for (auto n = delivs.cbegin(); n != delivs.cend(); ++n) {
-					aux.bestVisits[p][n->node()] = 1;
-					aux.curTours[p].push_back(n->node());
+				if (!delivs.empty()) {
+					aux.curTours[p].push_back(delivs.rbegin()->node()); // 路线中加入仓库
+					for (auto n = delivs.cbegin(); n != delivs.cend(); ++n) {
+						aux.bestVisits[p][n->node()] = 1;
+						aux.curTours[p].push_back(n->node());
+					}
 				}
+				else { aux.curTours[p] = { 0,0 }; }
 				for (auto n = aux.curTours[p].cbegin(), m = n + 1; m != aux.curTours[p].cend(); ++n, ++m) {
 					aux.tourPrices[p] += aux.routingCost[*n][*m];
 				}
@@ -358,7 +356,6 @@ namespace szx {
 				}
 			}
 		}
-
 		for (ID n = 1; n < nodeNum; ++n) {
 			for (ID m = n + 1; m < nodeNum; ++m) {
 				List<ID> tvn, tvm;
@@ -375,70 +372,81 @@ namespace szx {
 				}
 			}
 		}
-
+		
 		std::sort(delNeigh.begin(), delNeigh.end(), [](Actor &a1, Actor &a2) {return a1.totalCost < a2.totalCost; });
 		std::sort(movNeigh.begin(), movNeigh.end(), [](Actor &a1, Actor &a2) {return a1.totalCost < a2.totalCost; });
 		std::sort(swpNeigh.begin(), swpNeigh.end(), [](Actor &a1, Actor &a2) {return a1.totalCost < a2.totalCost; });
 		unsigned maxSize = 2 * periodNum * static_cast<unsigned>(sqrt(nodeNum));
 
-	/*
-		for (ID i = 0; i < maxSize && i < delNeigh.size(); ++i) {
-			auto &del(delNeigh[i]);
-			visits[del.p2][del.n2] = 0;
-			if ((del.modelCost = callModel(visits)) >= 0) {
-				del.totalCost += del.modelCost;
-				aux.mixNeigh.push_back(del);
+		/*
+			for (ID i = 0; i < maxSize && i < delNeigh.size(); ++i) {
+				auto &del(delNeigh[i]);
+				visits[del.p2][del.n2] = 0;
+				if ((del.modelCost = callModel(visits)) >= 0) {
+					del.totalCost += del.modelCost;
+					aux.mixNeigh.push_back(del);
+				}
+				else {	// 不合法，则禁忌
+					execTabu(hashValue1, hashValue2, hashValue3, del);
+				}
+				visits[del.p2][del.n2] = 1;
 			}
-			else {	// 不合法，则禁忌
-				execTabu(hashValue1, hashValue2, hashValue3, del);
-			}
-			visits[del.p2][del.n2] = 1;
-		}
 
-		for (ID i = 0; i < maxSize && i < movNeigh.size(); ++i) {
-			auto &mov(movNeigh[i]);
-			visits[mov.p1][mov.n1] = 1; visits[mov.p2][mov.n2] = 0;
-			if ((mov.modelCost = callModel(visits)) >= 0) {
-				mov.totalCost += mov.modelCost;
-				aux.mixNeigh.push_back(mov);
+			for (ID i = 0; i < maxSize && i < movNeigh.size(); ++i) {
+				auto &mov(movNeigh[i]);
+				visits[mov.p1][mov.n1] = 1; visits[mov.p2][mov.n2] = 0;
+				if ((mov.modelCost = callModel(visits)) >= 0) {
+					mov.totalCost += mov.modelCost;
+					aux.mixNeigh.push_back(mov);
+				}
+				else {	// 不合法，则禁忌
+					execTabu(hashValue1, hashValue2, hashValue3, mov);
+				}
+				visits[mov.p1][mov.n1] = 0; visits[mov.p2][mov.n2] = 1;
 			}
-			else {	// 不合法，则禁忌
-				execTabu(hashValue1, hashValue2, hashValue3, mov);
-			}
-			visits[mov.p1][mov.n1] = 0; visits[mov.p2][mov.n2] = 1;
-		}
 
-		for (ID i = 0; i < maxSize && i < swpNeigh.size(); ++i) {
-			auto &swp(swpNeigh[i]);
-			visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 0;
-			visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 1;
-			if ((swp.modelCost = callModel(visits)) >= 0) {
-				swp.totalCost += swp.modelCost;
-				aux.mixNeigh.push_back(swp);
+			for (ID i = 0; i < maxSize && i < swpNeigh.size(); ++i) {
+				auto &swp(swpNeigh[i]);
+				visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 0;
+				visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 1;
+				if ((swp.modelCost = callModel(visits)) >= 0) {
+					swp.totalCost += swp.modelCost;
+					aux.mixNeigh.push_back(swp);
+				}
+				else {	// 不合法，则禁忌
+					execTabu(hashValue1, hashValue2, hashValue3, swp);
+				}
+				visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 1;
+				visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 0;
 			}
-			else {	// 不合法，则禁忌
-				execTabu(hashValue1, hashValue2, hashValue3, swp);
-			}
-			visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 1;
-			visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 0;
-		}
 
-		std::sort(aux.mixNeigh.begin(), aux.mixNeigh.end(), [](const Actor &a1, const Actor &a2) {return a1.totalCost < a2.totalCost; });
+			if (aux.mixNeigh.empty()) { return 0; }
+			std::sort(aux.mixNeigh.begin(), aux.mixNeigh.end(), [](Actor &a1, Actor &a2) {return a1.totalCost < a2.totalCost; });
 
-		for (auto i = aux.mixNeigh.begin(), j = i + 1; j != aux.mixNeigh.end(); ++j) {
-			if (Math::weakEqual(i->totalCost, j->totalCost, 0.1)) {
-				execTabu(hashValue1, hashValue2, hashValue3, *j);
+			//for (auto i = aux.mixNeigh.cbegin(); i != aux.mixNeigh.cend(); ++i) {
+			//	cout << i->totalCost << " ";
+			//}
+			//cout << endl;
+
+			// 禁忌估计成本近似的邻居解
+			int num = aux.mixNeigh.size();
+			for (auto i = aux.mixNeigh.begin(), j = i + 1; j != aux.mixNeigh.end(); ++j) {
+				if (Math::weakEqual(i->totalCost, j->totalCost, 0.5)) {
+					execTabu(hashValue1, hashValue2, hashValue3, *j);
+				}
+				else {
+					if (num == aux.mixNeigh.size()) { num = distance(i, j); }
+					i = j;
+				}
 			}
-			else { i = j; }
-		}
-		return aux.mixNeigh.size() > 5 ? 5 : aux.mixNeigh.size();
-	*/
+			return num;	// num 为第一批值相等的邻居的数量
+		*/
 
 		for (ID i = 0; i < maxSize && i < delNeigh.size(); ++i) {
 			auto &del(delNeigh[i]);
 			execTabu(hashValue1, hashValue2, hashValue3, del);
 			visits[del.p2][del.n2] = 0;
-			if (( del.modelCost= callModel(visits)) >= 0) {
+			if ((del.modelCost = callModel(visits)) >= 0) {
 				del.totalCost += del.modelCost;
 				if (Math::strongLess(del.totalCost, minCost)) {
 					aux.mixNeigh.clear();
@@ -451,7 +459,6 @@ namespace szx {
 			}
 			visits[del.p2][del.n2] = 1;
 		}
-		
 		for (ID i = 0; i < maxSize && i < movNeigh.size(); ++i) {
 			auto &mov(movNeigh[i]);
 			execTabu(hashValue1, hashValue2, hashValue3, mov);
@@ -469,7 +476,6 @@ namespace szx {
 			}
 			visits[mov.p1][mov.n1] = 0; visits[mov.p2][mov.n2] = 1;
 		}
-		
 		for (ID i = 0; i < maxSize && i < swpNeigh.size(); ++i) {
 			auto &swp(swpNeigh[i]);
 			execTabu(hashValue1, hashValue2, hashValue3, swp);
@@ -489,7 +495,6 @@ namespace szx {
 			visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 1;
 			visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 0;
 		}
-
 		return aux.mixNeigh.size();
 	}
 
@@ -498,9 +503,10 @@ namespace szx {
 		do {
 			List<ID> room, addOpts, delOpts;
 			// 添加操作
+			const auto &nodes(*input.mutable_nodes());
 			for (ID p = 0; p < periodNum; ++p) {
 				for (ID n = 1; n < nodeNum; ++n) {
-					if (!visits[p][n]) { room.push_back(p*nodeNum + n); }
+					if (!visits[p][n] && nodes[n].holdingcost() < nodes[0].holdingcost()) { room.push_back(p*nodeNum + n); }
 				}
 			}
 			sampling(room, addOpts, addNumber);
@@ -571,7 +577,7 @@ namespace szx {
 	}
 
 	bool Solver::mixTabuSearch(Arr2D<ID> &visits, Price modelCost) {
-		execTabu(visits, true);
+		execTabu(visits, true);	// 禁忌起始解，并初始化全局 hashValue
 		bool isImproved = false; ID mixNeighSize = 0;
 		for (ID step = 0; !timer.isTimeOut() && step < alpha && (mixNeighSize = buildMixNeigh(visits)); ++step) {
 			const auto &act(aux.mixNeigh[rand.pick(mixNeighSize)]);
@@ -583,8 +589,9 @@ namespace szx {
 				if (act.n1 > 0) visits[act.p1][act.n1] = 1;
 				if (act.n2 > 0) visits[act.p2][act.n2] = 0;
 			}
+			// 精确计算路由，得到精确总成本
 			modelCost = act.modelCost + callLKH(visits, act.p1, act.p2);
-			execTabu(act);
+			execTabu(act);	// 会改变全局 hashValue
 			if (Math::strongLess(modelCost, aux.bestCost)) {
 				bestSlnTime = szx::Timer::Clock::now();
 				isImproved = true;
@@ -599,6 +606,7 @@ namespace szx {
 	}
 
 	void Solver::mixFinalSearch() {
+		//// 从历史最优或者当前解出发进行扰动
 		//double gamma = 0.99;	// epsilon 衰减系数
 		//for (int i = 0; !timer.isTimeOut(); ++i) {
 		//	int p = 100000 * std::pow(gamma, i);	
@@ -615,23 +623,18 @@ namespace szx {
 	}
 
 	void Solver::execSearch(Solution &sln) {
-		timer = Timer(10800s, timer.getStartTime());
-		bestSlnTime = timer.getEndTime();
+		timer = Timer(3600s, timer.getStartTime());
+		bestSlnTime = timer.getEndTime();// 找到最优解的时间
 
-		iteratedModel(sln);
-		aux.curVisits = aux.bestVisits;
-		changeNode(aux.curVisits, sln, 360s);
+		iteratedModel(sln);	// 完整松弛模型
 
-		for (int i = 0; i < 2; ++i) {
-			for (ID p = 0; p < periodNum - 2; ++p) {
-				getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 180);
-				aux.curVisits = aux.bestVisits;
-				changeNode(aux.curVisits, sln, 120s);
-			}
+		for (ID p = 0; p < periodNum - 2; ++p) {// 三相邻周期模型
+			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 180);
+		}
+		// 两轮两相邻周期模型
+		for (ID i = 0; i < 2; ++i) {
 			for (ID p = 0; p < periodNum - 1; ++p) {
-				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 180);
-				aux.curVisits = aux.bestVisits;
-				changeNode(aux.curVisits, sln, 120s);
+				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 90);
 			}
 		}
 
@@ -639,14 +642,22 @@ namespace szx {
 		mixTabuSearch(aux.curVisits, aux.bestCost);
 		mixFinalSearch();
 
-		getBestSln(sln, aux.bestVisits);
+		getBestSln(sln, aux.bestVisits);	// 还原历史最优解
 	}
 
 	bool Solver::optimize(Solution &sln, ID workerId) {
 		Log(LogSwitch::Szx::Framework) << "worker " << workerId << " starts." << endl;
 		sln.init(periodNum, input.vehicles_size(), Problem::MaxCost);
 
+		// 创建全局LKH求解器
+		static const String TspCacheDir("TspCache/");
+		System::makeSureDirExist(TspCacheDir);
+		tspSolver = new CachedTspSolver(nodeNum, TspCacheDir + env.friendlyInstName() + ".csv");
+
 		execSearch(sln);
+
+		delete tspSolver;
+		tspSolver = nullptr;
 
 		Log(LogSwitch::Szx::Framework) << "worker " << workerId << " ends." << endl;
 		return true;
@@ -655,7 +666,7 @@ namespace szx {
 	void Solver::iteratedModel(Solution &sln) {
 		ID vehicleNum = input.vehicles_size();
 		const auto &nodes(*input.mutable_nodes());
-		MpSolver::Configuration mpCfg(MpSolver::InternalSolver::GurobiMip, env.timeoutInSecond());
+		MpSolver::Configuration mpCfg(MpSolver::InternalSolver::GurobiMip, env.timeoutInSecond(), true, false);
 		MpSolver mp(mpCfg); mp.setMaxThread(4);
 
 		// delivery[p, v, n] is the quantity delivered to node n at period p by vehicle v.
@@ -763,9 +774,10 @@ namespace szx {
 			}
 		}
 
+
 		double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
 		obj = holdingCost + tourcostFactor * routingCost;
-		//obj = holdingCost + 2 * routingCost;
+		//obj = holdingCost + 1.5 * routingCost;
 		mp.addObjective(obj, MpSolver::OptimaOrientation::Minimize, 0, 0, 0, env.timeoutInSecond());
 
 		// add callbacks.
@@ -825,10 +837,6 @@ namespace szx {
 			}
 		};
 
-		static const String TspCacheDir("TspCache/");
-		System::makeSureDirExist(TspCacheDir);
-		CachedTspSolver tspSolver(nodeNum, TspCacheDir + env.friendlyInstName() + ".csv");
-
 		Solution curSln;
 		curSln.init(periodNum, vehicleNum);
 		auto nodeSetHandler = [&](MpSolver::MpEvent &e) {
@@ -862,7 +870,7 @@ namespace szx {
 					auto &route(*periodRoute.mutable_vehicleroutes(v));
 					route.clear_deliveries();
 					if (coords.size() > 2) { // repair the relaxed solution.
-						tspSolver.solve(tour, containNode, coords, [&](ID n) { return nodeIdMap[n]; });
+						tspSolver->solve(tour, containNode, coords, [&](ID n) { return nodeIdMap[n]; });
 					}
 					else if (coords.size() == 2) { // trivial cases.
 						tour.nodes.resize(2);
@@ -883,6 +891,8 @@ namespace szx {
 			}
 			//e.addLazy(nodeDiff >= 1);
 			subTourHandler(e);
+
+			//Log(LogSwitch::Szx::Model) << "model.routingcost=" << e.getValue(routingCost) << ", lkh.routingcost=" << curSln.totalCost << ", rate=" << 1.0*curSln.totalCost / e.getValue(routingCost) << endl;
 			curSln.totalCost += e.getValue(holdingCost);
 
 			if (Math::strongLess(curSln.totalCost, sln.totalCost)) {
@@ -898,7 +908,7 @@ namespace szx {
 		initialSln(sln);	// 初始化 visits, bestCost and allTourCost
 	}
 
-	void Solver::getNeighWithModel(Solution &sln,const Arr2D<ID> &visits,const List<ID> &pl,double timeInSec) {
+	void Solver::getNeighWithModel(Solution &sln, const Arr2D<ID> &visits, const List<ID> &pl, double timeInSec) {
 		Log(LogSwitch::Szx::Model) << "change period";
 		for (ID p : pl) { Log(LogSwitch::Szx::Model) << " " << p; } Log(LogSwitch::Szx::Model) << endl;
 
@@ -1003,7 +1013,7 @@ namespace szx {
 				}
 			}
 		}
-		
+
 		// add objective.
 		Expr obj;
 		Expr holdingCost = aux.initHoldingCost;
@@ -1028,9 +1038,10 @@ namespace szx {
 			}
 		}
 
+
 		double tourcostFactor = 1 + 1.0*rand.pick(8, 13) / 10;
 		obj = holdingCost + tourcostFactor * routingCost;
-		//obj = holdingCost + 2 * routingCost;
+		//obj = holdingCost + 1.5 * routingCost;
 		mp.addObjective(obj, MpSolver::OptimaOrientation::Minimize, 0, 0, 0, timeInSec);
 
 		// add callbacks.
@@ -1091,10 +1102,6 @@ namespace szx {
 			}
 		};
 
-		static const String TspCacheDir("TspCache/");
-		System::makeSureDirExist(TspCacheDir);
-		CachedTspSolver tspSolver(nodeNum, TspCacheDir + env.friendlyInstName() + ".csv");
-
 		Solution curSln; copySln(curSln, sln);
 		auto nodeSetHandler = [&](MpSolver::MpEvent &e) {
 			lkh::CoordList2D coords;
@@ -1125,7 +1132,7 @@ namespace szx {
 					auto &route(*periodRoute.mutable_vehicleroutes(v));
 					route.clear_deliveries();
 					if (coords.size() > 2) { // repair the relaxed solution.
-						tspSolver.solve(tour, containNode, coords, [&](ID n) { return nodeIdMap[n]; });
+						tspSolver->solve(tour, containNode, coords, [&](ID n) { return nodeIdMap[n]; });
 					}
 					else if (coords.size() == 2) { // trivial cases.
 						tour.nodes.resize(2);
@@ -1509,7 +1516,7 @@ namespace szx {
 	Price Solver::callModel(Arr2D<int> &visits) {
 		ID vehicleNum = input.vehicles_size();
 		const auto &nodes(*input.mutable_nodes());
-		MpSolver::Configuration mpCfg(MpSolver::InternalSolver::GurobiMip);
+		MpSolver::Configuration mpCfg;
 		MpSolver mp(mpCfg);
 
 		// delivery[p, v, n] is the quantity delivered to node n at period p by vehicle v.
@@ -1576,10 +1583,6 @@ namespace szx {
 
 	Price Solver::callLKH(const Arr2D<ID> &visits, ID p1, ID p2) {
 		const auto &nodes(*input.mutable_nodes());
-		static const String TspCacheDir("TspCache/");
-		System::makeSureDirExist(TspCacheDir);
-		CachedTspSolver tspSolver(nodeNum, TspCacheDir + env.friendlyInstName() + ".csv");
-
 		lkh::CoordList2D coords;
 		coords.reserve(nodeNum);
 		List<ID> nodeIdMap(nodeNum);
@@ -1604,7 +1607,7 @@ namespace szx {
 				}
 			}
 			if (coords.size() > 2) { // repair the relaxed solution.
-				tspSolver.solve(tour, containNode, coords, [&](ID n) { return nodeIdMap[n]; });
+				tspSolver->solve(tour, containNode, coords, [&](ID n) { return nodeIdMap[n]; });
 			}
 			else if (coords.size() == 2) { // trivial cases.
 				tour.nodes.resize(2);
@@ -1626,12 +1629,8 @@ namespace szx {
 		return tourCost;
 	}
 
-	Price Solver::callLKH4Cost(const Arr2D<ID> &visits,ID p1,ID p2) {
+	Price Solver::callLKH4Cost(const Arr2D<ID> &visits, ID p1, ID p2) {
 		const auto &nodes(*input.mutable_nodes());
-		static const String TspCacheDir("TspCache/");
-		System::makeSureDirExist(TspCacheDir);
-		CachedTspSolver tspSolver(nodeNum, TspCacheDir + env.friendlyInstName() + ".csv");
-
 		lkh::CoordList2D coords;
 		coords.reserve(nodeNum);
 		List<ID> nodeIdMap(nodeNum);
@@ -1660,7 +1659,7 @@ namespace szx {
 				}
 			}
 			if (coords.size() > 2) { // repair the relaxed solution.
-				tspSolver.solve(tour, containNode, coords, [&](ID n) { return nodeIdMap[n]; });
+				tspSolver->solve(tour, containNode, coords, [&](ID n) { return nodeIdMap[n]; });
 			}
 			else if (coords.size() == 2) { // trivial cases.
 				tour.nodes.resize(2);
@@ -1681,7 +1680,7 @@ namespace szx {
 	void Solver::getBestSln(Solution &sln, const Arr2D<ID> &visits) {
 		ID vehicleNum = input.vehicles_size();
 		const auto &nodes(*input.mutable_nodes());
-		MpSolver::Configuration mpCfg(MpSolver::InternalSolver::GurobiMip);
+		MpSolver::Configuration mpCfg;
 		MpSolver mp(mpCfg);
 
 		// delivery[p, v, n] is the quantity delivered to node n at period p by vehicle v.
@@ -1760,22 +1759,19 @@ namespace szx {
 		}
 	}
 
-	Price Solver::addNodeTourCost(ID pid, ID nid, bool chTour) {
+	Price Solver::addNodeTourCost(ID pid, ID nid) {
 		Price curCost, minCost = Problem::MaxCost;
-		auto pos = aux.curTours[pid].begin() + 1;
-		for (auto n = aux.curTours[pid].begin(), m = n + 1; m != aux.curTours[pid].end(); ++n, ++m) {
+		for (auto n = aux.curTours[pid].cbegin(), m = n + 1; m != aux.curTours[pid].cend(); ++n, ++m) {
 			curCost = aux.routingCost[*n][nid] + aux.routingCost[nid][*m] - aux.routingCost[*n][*m];
-			if (Math::strongLess(curCost, minCost)) { minCost = curCost; pos = m; }
+			if (Math::strongLess(curCost, minCost)) { minCost = curCost; }
 		}
-		if (chTour) { aux.curTours[pid].insert(pos, nid); }
 		return minCost;
 	}
 
-	Price Solver::delNodeTourCost(ID pid, ID nid, bool chTour) {
+	Price Solver::delNodeTourCost(ID pid, ID nid) {
 		auto pos = find(aux.curTours[pid].begin(), aux.curTours[pid].end(), nid);
 		auto pre = pos - 1, succ = pos + 1;
 		Price delta = aux.routingCost[*pre][*succ] - aux.routingCost[nid][*pre] - aux.routingCost[nid][*succ];
-		if (chTour) { aux.curTours[pid].erase(pos); }
 		return delta;
 	}
 
