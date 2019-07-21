@@ -61,11 +61,10 @@ namespace szx {
 		//"abs.v1h6c2n100.1", "abs.v1h6c2n100.2", "abs.v1h6c2n100.3", "abs.v1h6c2n100.4", "abs.v1h6c2n100.5", "abs.v1h6c2n100.6", "abs.v1h6c2n100.7", "abs.v1h6c2n100.8", "abs.v1h6c2n100.9", "abs.v1h6c2n100.10",
 		//"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5", "abs.v1h6c2n200.6", "abs.v1h6c2n200.7", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9", "abs.v1h6c2n200.10"
 
-		"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5", "abs.v1h6c2n200.6", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9",
-		"abs.v1h6c2n100.4", //"abs.v1h6c2n100.6",
+		"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5",
+		"abs.v1h6c2n200.6", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9", "abs.v1h6c2n100.4",
 		"abs.v1h6c1n200.1", "abs.v1h6c1n200.2", "abs.v1h6c1n200.6",
-		"abs.v1h6c1n100.2", "abs.v1h6c1n100.3",
-		"abs.v1h6c1n50.6"
+		"abs.v1h6c1n100.2", "abs.v1h6c1n100.3", "abs.v1h6c1n50.6"
 
 		});
 
@@ -234,29 +233,6 @@ namespace szx {
 			this_thread::sleep_for(1s);
 		}
 	}
-
-	//void Simulator::parallelBenchmark(int repeat) {
-	//	Task task;
-	//	task.instSet = "";
-	//	task.timeout = "360";
-	//	task.jobNum = "1";
-	//	task.cfgPath = Env::DefaultCfgPath();
-	//	task.logPath = Env::DefaultLogPath();
-	//	ThreadPool<> tp(15);
-	//	random_device rd;
-	//	mt19937 rgen(rd());
-	//	for (int i = 0; i < repeat; ++i) {
-	//		for (auto inst = instList.begin(); inst != instList.end(); ++inst) {
-	//			//for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
-	//			task.instId = *inst;
-	//			task.runId = to_string(i);
-	//			task.randSeed = to_string(Random::generateSeed());
-	//			//tp.push([=]() { run(task); });
-	//			tp.push([=]() { exe(task); });
-	//			this_thread::sleep_for(1s);
-	//		}
-	//	}
-	//}
 
 	void Simulator::parallelrun(Task task, int repeat) {
 		for (int i = 0; i < repeat; ++i) {

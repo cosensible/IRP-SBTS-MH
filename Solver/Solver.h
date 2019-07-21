@@ -242,6 +242,7 @@ namespace szx {
 		void execSearch(Solution &sln);
 		void getBestSln(Solution &sln, const Arr2D<ID> &visits);
 		void getNeighWithModel(Solution &sln, const Arr2D<ID> &visits, const List<ID> &pl, double timeInSec);
+		bool chMultiNodeModel(Arr2D<ID> &visits, const List<ID> &cn);
 		
 		bool changeNodeModel(Arr2D<ID> &visits, ID cn);
 		void changeNode(Arr2D<ID> &visits, Solution &sln, int maxIter);
