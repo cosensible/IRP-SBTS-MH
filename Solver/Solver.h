@@ -273,7 +273,7 @@ namespace szx {
 	public:
 		Problem::Input input;
 		Problem::Output output;
-		CachedTspSolver *tspSolver;
+		CachedTspSolver *tspSolver = nullptr;
 
 		ID periodNum, nodeNum;
 		List<bool> H1, H2, H3;

@@ -623,18 +623,18 @@ namespace szx {
 	}
 
 	void Solver::execSearch(Solution &sln) {
-		timer = Timer(3600s, timer.getStartTime());
+		timer = Timer(10800s, timer.getStartTime());
 		bestSlnTime = timer.getEndTime();// 找到最优解的时间
 
 		iteratedModel(sln);	// 完整松弛模型
 
 		for (ID p = 0; p < periodNum - 2; ++p) {// 三相邻周期模型
-			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 180);
+			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 480);
 		}
 		// 两轮两相邻周期模型
 		for (ID i = 0; i < 2; ++i) {
 			for (ID p = 0; p < periodNum - 1; ++p) {
-				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 90);
+				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 240);
 			}
 		}
 
@@ -937,7 +937,6 @@ namespace szx {
 				}
 			}
 		}
-
 		for (ID i = 0; i < chPNum; ++i) {
 			for (ID v = 0; v < vehicleNum; ++v) {
 				Arr2D<Dvar> &xpv(x.at(i, v));
