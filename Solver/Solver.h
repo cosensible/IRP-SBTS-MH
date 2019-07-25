@@ -45,6 +45,23 @@ namespace szx {
 			}
 		};
 
+
+		enum ChosenWay { RANDOM, DEMAND, PROXIM, REMOTE, TOTALCOST };
+		struct NodeInfo {
+			ID id;
+			ID disToDepot;
+			Price holdingRate;
+			Price routingCost;
+			Price holdingCost;
+			Price totalCost;
+			Price deltaCost;
+			NodeInfo() = default;
+			NodeInfo(ID id, double holdingRate, int disToDepot) :id(id), holdingRate(holdingRate), disToDepot(disToDepot) {}
+			NodeInfo(ID id, Price holdingCost, Price routingCost) :id(id), holdingCost(holdingCost), routingCost(routingCost) {}
+			NodeInfo(ID id, Price totalCost) :id(id), totalCost(totalCost) {}
+			void setTotalCost() { totalCost = holdingCost + routingCost; }
+		};
+
 		using Dvar = MpSolver::DecisionVar;
 		using Expr = MpSolver::LinearExpr;
 
@@ -244,12 +261,12 @@ namespace szx {
 		void getBestSln(Solution &sln, const Arr2D<ID> &visits);
 		void getNeighWithModel(Solution &sln, const Arr2D<ID> &visits, const List<ID> &pl, double timeInSec);
 		
-		bool chMultiNodeModel(Arr2D<ID> &visits, const List<ID> &cn);
-		bool changeNodeModel(Arr2D<ID> &visits, ID cn);
-		void changeNode(Arr2D<ID> &visits, Solution &sln, int maxIter);
-		void changeNode(Arr2D<ID> &visits, Solution &sln, const Timer::Millisecond &d);
+		void chMultiNodeSearch(Solution &sln, const List<ID> &chosenNodes);
+		Price getCaseTour(const Arr<ID> &caseVisit, lkh::Tour &caseTour);
+		Price chMultiNodeModel(const Arr2D<ID>& visits, const Arr2D<int>& valueCases, const Arr2D<lkh::Tour>& tourCases, const List<ID>& chosenNodes, Arr<ID>& chosenCase);
+		void chooseNodes(Solution &sln, List<ID> &chosenNodes, int chosenNum = 5, ChosenWay chosenWay = TOTALCOST);
 		void initQuantity(Solution &sln);
-		ID chooseNode(const Arr<ID> &tabuList, ID step);
+		void exeCNS(Solution &sln);
 
 		int buildMixNeigh(Arr2D<ID> &visits, Price minCost = Problem::MaxCost);
 		bool mixTabuSearch(Arr2D<ID> &visits, Price initCost);
@@ -260,6 +277,8 @@ namespace szx {
 		Price delNodeTourCost(ID p, ID n);
 		Price movNodeTourCost(ID apid, ID anid, ID dpid, ID dnid);
 		Price swpNodeTourCost(ID p1, ID n1, ID p2, ID n2);
+		void getNodeRoutingCost(List<NodeInfo> &nodeInfos);
+		void getNodeHoldingCost(Solution &sln, List<NodeInfo> &nodeInfos);
 
 		unsigned hash(const Arr2D<ID> &visits, double gamma);
 		bool isTabu(unsigned long hv1, unsigned long hv2, unsigned long hv3, const Actor& act);
@@ -269,6 +288,7 @@ namespace szx {
 		void execTabu(const Arr2D<ID> &visits, bool change = false);
 		template<typename T>
 		void sampling(const List<T> &pool, List<T> &res, ID K);
+		void sampleNode(const List<NodeInfo> &pool, List<ID> &res, ID K);
 
 		void copySln(Solution &lhs, Solution &rhs);
 		void printSln(Solution &sln);
@@ -280,14 +300,14 @@ namespace szx {
 	public:
 		Problem::Input input;
 		Problem::Output output;
-		CachedTspSolver *tspSolver;
+		CachedTspSolver *tspSolver = nullptr;
 
 		ID periodNum, nodeNum;
 		List<bool> H1, H2, H3;
 		unsigned hashValue1, hashValue2, hashValue3;
 
 		struct {
-			Arr2D<Price> routingCost;
+			Arr2D<Price> routingCost, quanLevels;
 			Price initHoldingCost, bestCost;
 			Arr2D<ID> bestVisits, curVisits;
 			Arr<Price> tourPrices;

@@ -165,10 +165,13 @@ namespace szx {
 		Task task;
 		task.instSet = "";
 
-		task.instId = "abs.v1h6c2n200.6";
-		task.randSeed = "1596309919";
+		//task.instId = "abs.v1h6c2n200.8";
+		//task.randSeed = "1567386551";
 
-		task.timeout = "600";
+		task.instId = "abs.v1h6c2n200.9";
+		task.randSeed = "1595666313";
+
+		task.timeout = "1800";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
