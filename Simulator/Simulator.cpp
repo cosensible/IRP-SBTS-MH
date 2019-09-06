@@ -18,53 +18,57 @@ namespace szx {
 
 	// EXTEND[szx][5]: read it from InstanceList.txt.
 	static const vector<String> instList({
-		//"abs.v1h3c1n5.1", "abs.v1h3c1n5.2", "abs.v1h3c1n5.3", "abs.v1h3c1n5.4", "abs.v1h3c1n5.5",
-		//"abs.v1h3c1n10.1", "abs.v1h3c1n10.2", "abs.v1h3c1n10.3", "abs.v1h3c1n10.4", "abs.v1h3c1n10.5",
-		//"abs.v1h3c1n15.1", "abs.v1h3c1n15.2", "abs.v1h3c1n15.3", "abs.v1h3c1n15.4", "abs.v1h3c1n15.5",
-		//"abs.v1h3c1n20.1", "abs.v1h3c1n20.2", "abs.v1h3c1n20.3", "abs.v1h3c1n20.4", "abs.v1h3c1n20.5",
-		//"abs.v1h3c1n25.1", "abs.v1h3c1n25.2", "abs.v1h3c1n25.3", "abs.v1h3c1n25.4", "abs.v1h3c1n25.5",
-		//"abs.v1h3c1n30.1", "abs.v1h3c1n30.2", "abs.v1h3c1n30.3", "abs.v1h3c1n30.4", "abs.v1h3c1n30.5",
-		//"abs.v1h3c1n35.1", "abs.v1h3c1n35.2", "abs.v1h3c1n35.3", "abs.v1h3c1n35.4", "abs.v1h3c1n35.5",
-		//"abs.v1h3c1n40.1", "abs.v1h3c1n40.2", "abs.v1h3c1n40.3", "abs.v1h3c1n40.4", "abs.v1h3c1n40.5",
-		//"abs.v1h3c1n45.1", "abs.v1h3c1n45.2", "abs.v1h3c1n45.3", "abs.v1h3c1n45.4", "abs.v1h3c1n45.5",
-		//"abs.v1h3c1n50.1", "abs.v1h3c1n50.2", "abs.v1h3c1n50.3", "abs.v1h3c1n50.4", "abs.v1h3c1n50.5",
+		/*
+		"abs.v1h3c1n5.1", "abs.v1h3c1n5.2", "abs.v1h3c1n5.3", "abs.v1h3c1n5.4", "abs.v1h3c1n5.5",
+		"abs.v1h3c1n10.1", "abs.v1h3c1n10.2", "abs.v1h3c1n10.3", "abs.v1h3c1n10.4", "abs.v1h3c1n10.5",
+		"abs.v1h3c1n15.1", "abs.v1h3c1n15.2", "abs.v1h3c1n15.3", "abs.v1h3c1n15.4", "abs.v1h3c1n15.5",
+		"abs.v1h3c1n20.1", "abs.v1h3c1n20.2", "abs.v1h3c1n20.3", "abs.v1h3c1n20.4", "abs.v1h3c1n20.5",
+		"abs.v1h3c1n25.1", "abs.v1h3c1n25.2", "abs.v1h3c1n25.3", "abs.v1h3c1n25.4", "abs.v1h3c1n25.5",
+		"abs.v1h3c1n30.1", "abs.v1h3c1n30.2", "abs.v1h3c1n30.3", "abs.v1h3c1n30.4", "abs.v1h3c1n30.5",
+		"abs.v1h3c1n35.1", "abs.v1h3c1n35.2", "abs.v1h3c1n35.3", "abs.v1h3c1n35.4", "abs.v1h3c1n35.5",
+		"abs.v1h3c1n40.1", "abs.v1h3c1n40.2", "abs.v1h3c1n40.3", "abs.v1h3c1n40.4", "abs.v1h3c1n40.5",
+		"abs.v1h3c1n45.1", "abs.v1h3c1n45.2", "abs.v1h3c1n45.3", "abs.v1h3c1n45.4", "abs.v1h3c1n45.5",
+		"abs.v1h3c1n50.1", "abs.v1h3c1n50.2", "abs.v1h3c1n50.3", "abs.v1h3c1n50.4", "abs.v1h3c1n50.5",
 
-		//"abs.v1h3c2n5.1", "abs.v1h3c2n5.2", "abs.v1h3c2n5.3", "abs.v1h3c2n5.4", "abs.v1h3c2n5.5",
-		//"abs.v1h3c2n10.1", "abs.v1h3c2n10.2", "abs.v1h3c2n10.3", "abs.v1h3c2n10.4", "abs.v1h3c2n10.5",
-		//"abs.v1h3c2n15.1", "abs.v1h3c2n15.2", "abs.v1h3c2n15.3", "abs.v1h3c2n15.4", "abs.v1h3c2n15.5",
-		//"abs.v1h3c2n20.1", "abs.v1h3c2n20.2", "abs.v1h3c2n20.3", "abs.v1h3c2n20.4", "abs.v1h3c2n20.5",
-		//"abs.v1h3c2n25.1", "abs.v1h3c2n25.2", "abs.v1h3c2n25.3", "abs.v1h3c2n25.4", "abs.v1h3c2n25.5",
-		//"abs.v1h3c2n30.1", "abs.v1h3c2n30.2", "abs.v1h3c2n30.3", "abs.v1h3c2n30.4", "abs.v1h3c2n30.5",
-		//"abs.v1h3c2n35.1", "abs.v1h3c2n35.2", "abs.v1h3c2n35.3", "abs.v1h3c2n35.4", "abs.v1h3c2n35.5",
-		//"abs.v1h3c2n40.1", "abs.v1h3c2n40.2", "abs.v1h3c2n40.3", "abs.v1h3c2n40.4", "abs.v1h3c2n40.5",
-		//"abs.v1h3c2n45.1", "abs.v1h3c2n45.2", "abs.v1h3c2n45.3", "abs.v1h3c2n45.4", "abs.v1h3c2n45.5",
-		//"abs.v1h3c2n50.1", "abs.v1h3c2n50.2", "abs.v1h3c2n50.3", "abs.v1h3c2n50.4", "abs.v1h3c2n50.5",
+		"abs.v1h3c2n5.1", "abs.v1h3c2n5.2", "abs.v1h3c2n5.3", "abs.v1h3c2n5.4", "abs.v1h3c2n5.5",
+		"abs.v1h3c2n10.1", "abs.v1h3c2n10.2", "abs.v1h3c2n10.3", "abs.v1h3c2n10.4", "abs.v1h3c2n10.5",
+		"abs.v1h3c2n15.1", "abs.v1h3c2n15.2", "abs.v1h3c2n15.3", "abs.v1h3c2n15.4", "abs.v1h3c2n15.5",
+		"abs.v1h3c2n20.1", "abs.v1h3c2n20.2", "abs.v1h3c2n20.3", "abs.v1h3c2n20.4", "abs.v1h3c2n20.5",
+		"abs.v1h3c2n25.1", "abs.v1h3c2n25.2", "abs.v1h3c2n25.3", "abs.v1h3c2n25.4", "abs.v1h3c2n25.5",
+		"abs.v1h3c2n30.1", "abs.v1h3c2n30.2", "abs.v1h3c2n30.3", "abs.v1h3c2n30.4", "abs.v1h3c2n30.5",
+		"abs.v1h3c2n35.1", "abs.v1h3c2n35.2", "abs.v1h3c2n35.3", "abs.v1h3c2n35.4", "abs.v1h3c2n35.5",
+		"abs.v1h3c2n40.1", "abs.v1h3c2n40.2", "abs.v1h3c2n40.3", "abs.v1h3c2n40.4", "abs.v1h3c2n40.5",
+		"abs.v1h3c2n45.1", "abs.v1h3c2n45.2", "abs.v1h3c2n45.3", "abs.v1h3c2n45.4", "abs.v1h3c2n45.5",
+		"abs.v1h3c2n50.1", "abs.v1h3c2n50.2", "abs.v1h3c2n50.3", "abs.v1h3c2n50.4", "abs.v1h3c2n50.5",
 
-		//"abs.v1h6c1n5.1", "abs.v1h6c1n5.2", "abs.v1h6c1n5.3", "abs.v1h6c1n5.4", "abs.v1h6c1n5.5",
-		//"abs.v1h6c1n10.1", "abs.v1h6c1n10.2", "abs.v1h6c1n10.3", "abs.v1h6c1n10.4", "abs.v1h6c1n10.5",
-		//"abs.v1h6c1n15.1", "abs.v1h6c1n15.2", "abs.v1h6c1n15.3", "abs.v1h6c1n15.4", "abs.v1h6c1n15.5",
-		//"abs.v1h6c1n20.1", "abs.v1h6c1n20.2", "abs.v1h6c1n20.3", "abs.v1h6c1n20.4", "abs.v1h6c1n20.5",
-		//"abs.v1h6c1n25.1", "abs.v1h6c1n25.2", "abs.v1h6c1n25.3", "abs.v1h6c1n25.4", "abs.v1h6c1n25.5",
-		//"abs.v1h6c1n30.1", "abs.v1h6c1n30.2", "abs.v1h6c1n30.3", "abs.v1h6c1n30.4", "abs.v1h6c1n30.5",
+		"abs.v1h6c1n5.1", "abs.v1h6c1n5.2", "abs.v1h6c1n5.3", "abs.v1h6c1n5.4", "abs.v1h6c1n5.5",
+		"abs.v1h6c1n10.1", "abs.v1h6c1n10.2", "abs.v1h6c1n10.3", "abs.v1h6c1n10.4", "abs.v1h6c1n10.5",
+		"abs.v1h6c1n15.1", "abs.v1h6c1n15.2", "abs.v1h6c1n15.3", "abs.v1h6c1n15.4", "abs.v1h6c1n15.5",
+		"abs.v1h6c1n20.1", "abs.v1h6c1n20.2", "abs.v1h6c1n20.3", "abs.v1h6c1n20.4", "abs.v1h6c1n20.5",
+		"abs.v1h6c1n25.1", "abs.v1h6c1n25.2", "abs.v1h6c1n25.3", "abs.v1h6c1n25.4", "abs.v1h6c1n25.5",
+		"abs.v1h6c1n30.1", "abs.v1h6c1n30.2", "abs.v1h6c1n30.3", "abs.v1h6c1n30.4", "abs.v1h6c1n30.5",
 
-		//"abs.v1h6c2n5.1", "abs.v1h6c2n5.2", "abs.v1h6c2n5.3", "abs.v1h6c2n5.4", "abs.v1h6c2n5.5",
-		//"abs.v1h6c2n10.1", "abs.v1h6c2n10.2", "abs.v1h6c2n10.3", "abs.v1h6c2n10.4", "abs.v1h6c2n10.5",
-		//"abs.v1h6c2n15.1", "abs.v1h6c2n15.2", "abs.v1h6c2n15.3", "abs.v1h6c2n15.4", "abs.v1h6c2n15.5",
-		//"abs.v1h6c2n20.1", "abs.v1h6c2n20.2", "abs.v1h6c2n20.3", "abs.v1h6c2n20.4", "abs.v1h6c2n20.5",
-		//"abs.v1h6c2n25.1", "abs.v1h6c2n25.2", "abs.v1h6c2n25.3", "abs.v1h6c2n25.4", "abs.v1h6c2n25.5",
-		//"abs.v1h6c2n30.1", "abs.v1h6c2n30.2", "abs.v1h6c2n30.3", "abs.v1h6c2n30.4", "abs.v1h6c2n30.5",
+		"abs.v1h6c2n5.1", "abs.v1h6c2n5.2", "abs.v1h6c2n5.3", "abs.v1h6c2n5.4", "abs.v1h6c2n5.5",
+		"abs.v1h6c2n10.1", "abs.v1h6c2n10.2", "abs.v1h6c2n10.3", "abs.v1h6c2n10.4", "abs.v1h6c2n10.5",
+		"abs.v1h6c2n15.1", "abs.v1h6c2n15.2", "abs.v1h6c2n15.3", "abs.v1h6c2n15.4", "abs.v1h6c2n15.5",
+		"abs.v1h6c2n20.1", "abs.v1h6c2n20.2", "abs.v1h6c2n20.3", "abs.v1h6c2n20.4", "abs.v1h6c2n20.5",
+		"abs.v1h6c2n25.1", "abs.v1h6c2n25.2", "abs.v1h6c2n25.3", "abs.v1h6c2n25.4", "abs.v1h6c2n25.5",
+		"abs.v1h6c2n30.1", "abs.v1h6c2n30.2", "abs.v1h6c2n30.3", "abs.v1h6c2n30.4", "abs.v1h6c2n30.5",
+		*/
 
-		//"abs.v1h6c1n50.1", "abs.v1h6c1n50.2", "abs.v1h6c1n50.3", "abs.v1h6c1n50.4", "abs.v1h6c1n50.5", "abs.v1h6c1n50.6", "abs.v1h6c1n50.7", "abs.v1h6c1n50.8", "abs.v1h6c1n50.9", "abs.v1h6c1n50.10",
-		//"abs.v1h6c1n100.1", "abs.v1h6c1n100.2", "abs.v1h6c1n100.3", "abs.v1h6c1n100.4", "abs.v1h6c1n100.5", "abs.v1h6c1n100.6", "abs.v1h6c1n100.7", "abs.v1h6c1n100.8", "abs.v1h6c1n100.9", "abs.v1h6c1n100.10",
-		//"abs.v1h6c1n200.1", "abs.v1h6c1n200.2", "abs.v1h6c1n200.3", "abs.v1h6c1n200.4", "abs.v1h6c1n200.5", "abs.v1h6c1n200.6", "abs.v1h6c1n200.7", "abs.v1h6c1n200.8", "abs.v1h6c1n200.9", "abs.v1h6c1n200.10",
-		//"abs.v1h6c2n50.1", "abs.v1h6c2n50.2", "abs.v1h6c2n50.3", "abs.v1h6c2n50.4", "abs.v1h6c2n50.5", "abs.v1h6c2n50.6", "abs.v1h6c2n50.7", "abs.v1h6c2n50.8", "abs.v1h6c2n50.9", "abs.v1h6c2n50.10",
-		//"abs.v1h6c2n100.1", "abs.v1h6c2n100.2", "abs.v1h6c2n100.3", "abs.v1h6c2n100.4", "abs.v1h6c2n100.5", "abs.v1h6c2n100.6", "abs.v1h6c2n100.7", "abs.v1h6c2n100.8", "abs.v1h6c2n100.9", "abs.v1h6c2n100.10",
-		//"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5", "abs.v1h6c2n200.6", "abs.v1h6c2n200.7", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9", "abs.v1h6c2n200.10"
+		
+		"abs.v1h6c1n50.1", "abs.v1h6c1n50.2", "abs.v1h6c1n50.3", "abs.v1h6c1n50.4", "abs.v1h6c1n50.5", "abs.v1h6c1n50.6", "abs.v1h6c1n50.7", "abs.v1h6c1n50.8", "abs.v1h6c1n50.9", "abs.v1h6c1n50.10",
+		"abs.v1h6c1n100.1", "abs.v1h6c1n100.2", "abs.v1h6c1n100.3", "abs.v1h6c1n100.4", "abs.v1h6c1n100.5", "abs.v1h6c1n100.6", "abs.v1h6c1n100.7", "abs.v1h6c1n100.8", "abs.v1h6c1n100.9", "abs.v1h6c1n100.10",
+		"abs.v1h6c1n200.1", "abs.v1h6c1n200.2", "abs.v1h6c1n200.3", "abs.v1h6c1n200.4", "abs.v1h6c1n200.5", "abs.v1h6c1n200.6", "abs.v1h6c1n200.7", "abs.v1h6c1n200.8", "abs.v1h6c1n200.9", "abs.v1h6c1n200.10",
+		"abs.v1h6c2n50.1", "abs.v1h6c2n50.2", "abs.v1h6c2n50.3", "abs.v1h6c2n50.4", "abs.v1h6c2n50.5", "abs.v1h6c2n50.6", "abs.v1h6c2n50.7", "abs.v1h6c2n50.8", "abs.v1h6c2n50.9", "abs.v1h6c2n50.10",
+		"abs.v1h6c2n100.1", "abs.v1h6c2n100.2", "abs.v1h6c2n100.3", "abs.v1h6c2n100.4", "abs.v1h6c2n100.5", "abs.v1h6c2n100.6", "abs.v1h6c2n100.7", "abs.v1h6c2n100.8", "abs.v1h6c2n100.9", "abs.v1h6c2n100.10",
+		"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5", "abs.v1h6c2n200.6", "abs.v1h6c2n200.7", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9", "abs.v1h6c2n200.10",
+		
 
-		"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5",
-		"abs.v1h6c2n200.6", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9", "abs.v1h6c2n100.4",
-		"abs.v1h6c1n200.1", "abs.v1h6c1n200.2", "abs.v1h6c1n200.6",
-		"abs.v1h6c1n100.2", "abs.v1h6c1n100.3", "abs.v1h6c1n50.6"
+		//"abs.v1h6c1n50.7", "abs.v1h6c1n100.2",
+		//"abs.v1h6c1n200.2", "abs.v1h6c1n200.6",
+		//"abs.v1h6c2n50.2", "abs.v1h6c2n50.5",
+		//"abs.v1h6c2n200.1", "abs.v1h6c2n200.2", "abs.v1h6c2n200.3", "abs.v1h6c2n200.4", "abs.v1h6c2n200.5", "abs.v1h6c2n200.6", "abs.v1h6c2n200.8", "abs.v1h6c2n200.9", "abs.v1h6c2n200.10",
 
 		});
 
@@ -165,18 +169,15 @@ namespace szx {
 		Task task;
 		task.instSet = "";
 
-		//task.instId = "abs.v1h6c2n200.8";
-		//task.randSeed = "1567386551";
+		task.instId = "abs.v1h6c1n200.1";
+		//task.randSeed = "1595666313";
 
-		task.instId = "abs.v1h6c2n200.9";
-		task.randSeed = "1595666313";
-
-		task.timeout = "3000";
+		task.timeout = "30";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
 		for (int i = 0; i < repeat; ++i) {
-			//task.randSeed = to_string(Random::generateSeed());
+			task.randSeed = to_string(Random::generateSeed());
 			task.runId = to_string(i);
 			run(task);
 			this_thread::sleep_for(2s);
@@ -188,14 +189,14 @@ namespace szx {
 			task.runId = to_string(i);
 			task.randSeed = to_string(Random::generateSeed());
 			exe(task);
-			this_thread::sleep_for(1s);
+			this_thread::sleep_for(2s);
 		}
 	}
 
 	void Simulator::parallelBenchmark(int repeat) {
 		Task task;
 		task.instSet = "";
-		task.timeout = "3000";
+		task.timeout = "600";
 		task.jobNum = "1";
 		task.cfgPath = Env::DefaultCfgPath();
 		task.logPath = Env::DefaultLogPath();
@@ -203,6 +204,7 @@ namespace szx {
 		ThreadPool<> tp(15);
 		random_device rd;
 		mt19937 rgen(rd());
+
 		for (auto inst = instList.begin(); inst != instList.end(); ++inst) {
 			//for (auto inst = instList.rbegin(); inst != instList.rend(); ++inst) {
 			task.instId = *inst;

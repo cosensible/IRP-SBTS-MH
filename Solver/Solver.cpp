@@ -224,7 +224,8 @@ namespace szx {
 			<< env.rid << ","
 			<< env.instPath << ","
 			<< feasible << "," << objDiff << ","
-			<< output.totalCost << ","
+			//<< output.totalCost << ","
+			<< 1.0 * checkerObj / Problem::CheckerObjScale << ","
 			<< bestObj << ","
 			<< refObj << ","
 			//<< timer.elapsedSeconds() << ","
@@ -308,7 +309,7 @@ namespace szx {
 		}
 	}
 
-	//记录解对应的visits、tours、tourPrices
+	//记录解对应的visits、tours、tourPrices，没用到库存量
 	void Solver::initialSln(Solution &sln) {
 		aux.bestCost = sln.totalCost;
 		aux.tourPrices.reset();
@@ -459,6 +460,7 @@ namespace szx {
 			}
 			visits[del.p2][del.n2] = 1;
 		}
+
 		for (ID i = 0; i < maxSize && i < movNeigh.size(); ++i) {
 			auto &mov(movNeigh[i]);
 			execTabu(hashValue1, hashValue2, hashValue3, mov);
@@ -476,6 +478,7 @@ namespace szx {
 			}
 			visits[mov.p1][mov.n1] = 0; visits[mov.p2][mov.n2] = 1;
 		}
+
 		for (ID i = 0; i < maxSize && i < swpNeigh.size(); ++i) {
 			auto &swp(swpNeigh[i]);
 			execTabu(hashValue1, hashValue2, hashValue3, swp);
@@ -495,6 +498,110 @@ namespace szx {
 			visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 1;
 			visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 0;
 		}
+
+		return aux.mixNeigh.size();
+	}
+
+	int Solver::buildMixNeighOld(Arr2D<ID> &visits, Price minCost) {
+		aux.mixNeigh.clear();
+		List<Actor> delNeigh, movNeigh, swpNeigh;
+
+		for (ID n = 1; n < nodeNum; ++n) {
+			List<ID> P0, P1;
+			for (ID p = 0; p < periodNum; ++p) {
+				if (visits[p][n]) {
+					P1.push_back(p);
+					Actor act(DEL, 0.0, 0.0, -1, -1, p, n); // 只生成动作
+					if (!isTabu(hashValue1, hashValue2, hashValue3, act)) { delNeigh.push_back(act); }
+				}
+				else { P0.push_back(p); }
+			}
+
+			for (ID p0 : P0) {
+				for (ID p1 : P1) {
+					Actor act(MOV, 0.0, 0.0, p0, n, p1, n); // 只生成动作
+					if (isTabu(hashValue1, hashValue2, hashValue3, act)) { continue; }
+					movNeigh.push_back(act);
+				}
+			}
+		}
+
+		for (ID n = 1; n < nodeNum; ++n) {
+			for (ID m = n + 1; m < nodeNum; ++m) {
+				List<ID> tvn, tvm;
+				for (ID p = 0; p < periodNum; ++p) {
+					if (visits[p][n] && !visits[p][m]) { tvn.push_back(p); }
+					if (!visits[p][n] && visits[p][m]) { tvm.push_back(p); }
+				}
+				for (ID t1 : tvn) {
+					for (ID t2 : tvm) {
+						Actor act(SWP, 0.0, 0.0, t1, n, t2, m); // 只生成动作
+						if (isTabu(hashValue1, hashValue2, hashValue3, act)) { continue; }
+						swpNeigh.push_back(act);
+					}
+				}
+			}
+		}
+		// 收集所有的邻域解的visits之后，进行库存和LKH完整评估
+		for (ID i = 0; i < delNeigh.size(); ++i) { // 全部评估
+			auto &del(delNeigh[i]);
+			execTabu(hashValue1, hashValue2, hashValue3, del);
+			visits[del.p2][del.n2] = 0;
+			if ((del.modelCost = callModel(visits)) >= 0) {
+				del.totalCost = callLKH(visits, del.p2); // LKH
+				del.totalCost += del.modelCost;
+				if (Math::strongLess(del.totalCost, minCost, 0.01)) {
+					aux.mixNeigh.clear();
+					minCost = del.totalCost;
+					aux.mixNeigh.push_back(del);
+				}
+				else if (Math::weakEqual(del.totalCost, minCost, 0.01)) {
+					aux.mixNeigh.push_back(del);
+				}
+			}
+			visits[del.p2][del.n2] = 1;
+		}
+
+
+		for (ID i = 0; i < movNeigh.size(); ++i) {
+			auto &mov(movNeigh[i]);
+			execTabu(hashValue1, hashValue2, hashValue3, mov);
+			visits[mov.p1][mov.n1] = 1; visits[mov.p2][mov.n2] = 0;
+			if ((mov.modelCost = callModel(visits)) >= 0) {
+				mov.totalCost = callLKH(visits, mov.p1, mov.p2); // LKH
+				mov.totalCost += mov.modelCost;
+				if (Math::strongLess(mov.totalCost, minCost, 0.01)) {
+					aux.mixNeigh.clear();
+					minCost = mov.totalCost;
+					aux.mixNeigh.push_back(mov);
+				}
+				else if (Math::weakEqual(mov.totalCost, minCost, 0.01)) {
+					aux.mixNeigh.push_back(mov);
+				}
+			}
+			visits[mov.p1][mov.n1] = 0; visits[mov.p2][mov.n2] = 1;
+		}
+
+		for (ID i = 0; i < swpNeigh.size(); ++i) {
+			auto &swp(swpNeigh[i]);
+			execTabu(hashValue1, hashValue2, hashValue3, swp);
+			visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 0;
+			visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 1;
+			if ((swp.modelCost = callModel(visits)) >= 0) {
+				swp.totalCost = callLKH(visits, swp.p1, swp.p2); // LKH
+				swp.totalCost += swp.modelCost;
+				if (Math::strongLess(swp.totalCost, minCost, 0.01)) {
+					aux.mixNeigh.clear();
+					minCost = swp.totalCost;
+					aux.mixNeigh.push_back(swp);
+				}
+				else if (Math::weakEqual(swp.totalCost, minCost, 0.01)) {
+					aux.mixNeigh.push_back(swp);
+				}
+			}
+			visits[swp.p1][swp.n1] = visits[swp.p2][swp.n2] = 1;
+			visits[swp.p1][swp.n2] = visits[swp.p2][swp.n1] = 0;
+		}
 		return aux.mixNeigh.size();
 	}
 
@@ -506,7 +613,8 @@ namespace szx {
 			const auto &nodes(*input.mutable_nodes());
 			for (ID p = 0; p < periodNum; ++p) {
 				for (ID n = 1; n < nodeNum; ++n) {
-					if (!visits[p][n] && nodes[n].holdingcost() < nodes[0].holdingcost()) { room.push_back(p*nodeNum + n); }
+					//if (!visits[p][n] && nodes[n].holdingcost() < nodes[0].holdingcost()) { room.push_back(p*nodeNum + n); }
+					if (!visits[p][n]) { room.push_back(p*nodeNum + n); }
 				}
 			}
 			sampling(room, addOpts, addNumber);
@@ -622,22 +730,98 @@ namespace szx {
 		}
 	}
 
-	void Solver::execSearch(Solution &sln) {
-		timer = Timer(10800s, timer.getStartTime());
-		bestSlnTime = timer.getEndTime();// 找到最优解的时间
-
-		iteratedModel(sln);	// 完整松弛模型
-
-		for (ID p = 0; p < periodNum - 2; ++p) {// 三相邻周期模型
-			getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 480);
-		}
-		// 两轮两相邻周期模型
-		for (ID i = 0; i < 2; ++i) {
-			for (ID p = 0; p < periodNum - 1; ++p) {
-				getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 240);
+	void Solver::saveVisit(String path,Price tcost,const Arr2D<int> &visits) {
+		ofstream fout(path, std::ios::app);
+		fout << tcost << " ";
+		for (ID p = 0; p < periodNum; ++p) {
+			for (ID n = 0; n < nodeNum; ++n) {
+				fout << visits[p][n] << " ";
 			}
 		}
+		fout << endl;
+		fout.close();
+	}
 
+	void Solver::loadVisit(String path, Solution &sln) {
+		ifstream fin(path);
+		fin >> aux.bestCost;
+		for (ID p = 0; p < periodNum; ++p) {
+			for (ID n = 0; n < nodeNum; ++n) {
+				fin >> aux.bestVisits[p][n];
+			}
+		}
+		fin.close();
+		getBestSln(sln, aux.bestVisits);
+		initialSln(sln);
+	}
+
+	void Solver::loadVisit(String path) {
+		ifstream fin(path);
+		fin >> aux.bestCost;
+		for (ID p = 0; p < periodNum; ++p) {
+			for (ID n = 0; n < nodeNum; ++n) {
+				fin >> aux.bestVisits[p][n];
+			}
+		}
+		fin.close();
+		callLKH(aux.bestVisits);
+	}
+
+	void Solver::execSearch(Solution &sln) {
+		//timer = Timer(1800s, timer.getStartTime());
+		//bestSlnTime = timer.getEndTime();// 找到最优解的时间
+		//iteratedModel(sln);	// 完整松弛模型
+		
+		//cout << "Before: bestCost=" << aux.bestCost << endl;
+		//cout << "bestVisits:" << endl;
+		//for (ID p = 0; p < periodNum; ++p) {
+		//	for (ID n = 0; n < nodeNum; ++n) {
+		//		cout << aux.bestVisits[p][n] << " ";
+		//	}
+		//	cout << endl;
+		//}
+		//for (int p = 0; p < periodNum; p++) {
+		//	cout << "p=" << p << ", " << aux.tourPrices[p] << endl;
+		//	for (auto n : aux.curTours[p]) {
+		//		cout << n << " ";
+		//	}
+		//	cout << endl;
+		//}
+
+		//cout << aux.bestCost << endl;
+		//saveVisit("initialSol/" + env.friendlyInstName() + "_visits.csv", aux.bestCost, aux.bestVisits);
+		//loadVisit("initialSol/" + env.friendlyInstName() + "_visits.csv");
+		//cout << aux.bestCost << endl;
+
+		//cout << "\nAfter: bestCost=" << aux.bestCost << endl;
+		//cout << "bestVisits:" << endl;
+		//for (ID p = 0; p < periodNum; ++p) {
+		//	for (ID n = 0; n < nodeNum; ++n) {
+		//		cout << aux.bestVisits[p][n] << " ";
+		//	}
+		//	cout << endl;
+		//}
+		//for (int p = 0; p < periodNum; p++) {
+		//	cout << "p=" << p << ", " << aux.tourPrices[p] << endl;
+		//	for (auto n : aux.curTours[p]) {
+		//		cout << n << " ";
+		//	}
+		//	cout << endl;
+		//}
+
+		//for (ID p = 0; p < periodNum - 2; ++p) {// 三相邻周期模型
+		//	getNeighWithModel(sln, aux.bestVisits, { p,p + 1,p + 2 }, 180);
+		//}
+		//// 两轮两相邻周期模型
+		//for (ID i = 0; i < 2; ++i) {
+		//	for (ID p = 0; p < periodNum - 1; ++p) {
+		//		getNeighWithModel(sln, aux.bestVisits, { p,p + 1 }, 90);
+		//	}
+		//}
+
+		timer = Timer(1800s);
+		bestSlnTime = timer.getEndTime();
+		loadVisit("initialSol/" + env.friendlyInstName() + "_visits.csv");
 		aux.curVisits = aux.bestVisits;
 		mixTabuSearch(aux.curVisits, aux.bestCost);
 		mixFinalSearch();

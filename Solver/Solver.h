@@ -245,6 +245,7 @@ namespace szx {
 		void getNeighWithModel(Solution &sln, const Arr2D<ID> &visits, const List<ID> &pl, double timeInSec);
 
 		int buildMixNeigh(Arr2D<ID> &visits, Price minCost = Problem::MaxCost);
+		int buildMixNeighOld(Arr2D<ID> &visits, Price minCost = Problem::MaxCost);
 		bool mixTabuSearch(Arr2D<ID> &visits, Price initCost);
 		void disturb(Arr2D<ID> &visits);
 		void mixFinalSearch();
@@ -266,6 +267,9 @@ namespace szx {
 		void copySln(Solution &lhs, Solution &rhs);
 		void printSln(Solution &sln);
 		void printInfo();
+		void saveVisit(String path, Price tcost, const Arr2D<int> &visits);
+		void loadVisit(String path, Solution &sln);
+		void loadVisit(String path);
 
 #pragma endregion Method
 
